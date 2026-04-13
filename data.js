@@ -1,0 +1,3333 @@
+﻿const selectionData = [
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-05B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-05B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-05B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-05B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-05B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-05B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-05B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-05B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-05B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-05B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-05B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-05B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-05B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-05B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-05B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-05B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-05B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-05B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-05B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-05B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-05B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-05B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-05B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-05B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-05B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-05B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-05B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-05B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-05B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-05B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "50W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-10B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-10B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-10B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-10B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-10B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-10B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-10B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-10B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-10B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-10B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-10B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-10B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-10B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-10B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-10B30CB-A330R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-10B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-10B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-10B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-10B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-10B30CB-A332R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-10B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-10B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-10B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-10B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-10B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-10B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-10B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-10B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-10B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-10B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "100W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-20B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-20B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-20B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-20B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-20B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-20B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-20B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-20B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-20B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-20B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-20B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-20B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-20B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-20B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-20B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS1R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-20B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS1R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-20B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS1R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-20B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS1R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-20B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS1R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-20B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "200W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS2R8I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-40B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS2R8I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-40B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS2R8I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-40B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS2R8I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-40B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS2R8I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-40B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS2R8I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-40B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS2R8I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-40B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS2R8I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-40B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS2R8I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-40B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS2R8I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-40B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS2R8I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-40B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS2R8I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-40B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS2R8I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-40B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS2R8I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-40B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS2R8I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-40B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS2R8I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-40B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS2R8I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-40B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS2R8I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-40B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS2R8I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-40B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS2R8I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-40B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS5R5I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-55B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS5R5I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-55B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS5R5I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-55B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS5R5I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-55B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS5R5I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-55B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS5R5I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-55B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS5R5I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-55B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS5R5I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-55B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS5R5I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-55B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS5R5I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-55B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS5R5I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-55B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS5R5I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-55B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS5R5I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-55B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS5R5I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-55B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS5R5I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-55B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS5R5I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-55B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS5R5I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-55B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS5R5I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-55B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS5R5I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-55B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS5R5I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-55B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "550W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS5R5I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-75B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS5R5I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-75B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS5R5I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-75B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS5R5I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-75B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS5R5I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-75B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS5R5I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-75B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS5R5I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-75B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS5R5I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-75B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS5R5I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-75B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS5R5I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-75B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS5R5I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-75B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS5R5I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-75B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS5R5I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-75B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS5R5I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-75B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS5R5I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-75B30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS5R5I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-75B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS5R5I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-75B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS5R5I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-75B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS5R5I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-75B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS5R5I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-75B30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "750W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS7R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-85B15CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS7R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-85B15CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS7R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-85B15CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS7R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-85B15CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS7R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-85B15CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS7R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-85B15CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS7R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-85B15CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS7R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-85B15CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS7R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-85B15CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS7R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-85B15CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS7R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS7R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS7R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS7R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS7R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS7R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS7R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS7R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS7R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS7R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS7R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS7R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS7R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS7R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS7R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS7R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS7R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS7R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS7R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS7R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H1-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H1-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H1-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H1-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H1-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H4-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H4-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H4-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H4-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H4-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS7R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS7R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS7R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS7R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS7R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-10C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS7R6I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS7R6I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS7R6I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS7R6I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS7R6I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-10C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-13C15CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-13C15CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-13C15CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-13C15CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-13C15CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-13C15CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-13C15CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-13C15CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-13C15CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-13C15CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NS012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-15C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FS012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-15C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PS012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-15C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AS012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-15C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CS012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-15C30CB-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NS012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-15C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FS012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-15C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PS012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-15C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AS012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-15C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CS012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-15C30CB-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT3R5I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-85B15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT3R5I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-85B15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT3R5I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-85B15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT3R5I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-85B15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT3R5I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-85B15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT3R5I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-85B15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT3R5I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-85B15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT3R5I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-85B15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT3R5I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-85B15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT3R5I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-85B15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "850W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT3R5I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-10C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT3R5I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-10C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT3R5I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-10C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT3R5I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-10C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT3R5I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-10C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT3R5I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-10C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT3R5I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-10C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT3R5I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-10C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT3R5I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-10C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT3R5I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-10C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT5R4I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-13C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT5R4I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-13C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT5R4I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-13C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT5R4I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-13C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT5R4I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-13C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT5R4I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-13C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT5R4I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-13C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT5R4I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-13C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT5R4I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-13C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT5R4I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-13C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1300W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT5R4I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-15C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT5R4I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-15C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT5R4I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-15C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT5R4I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-15C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT5R4I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-15C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT5R4I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-15C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT5R4I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-15C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT5R4I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-15C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT5R4I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-15C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT5R4I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-15C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT8R4I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-18C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1800W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT8R4I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-18C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1800W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT8R4I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-18C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1800W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT8R4I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-18C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1800W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT8R4I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-18C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "1800W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT8R4I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-18C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1800W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT8R4I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-18C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1800W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT8R4I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-18C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1800W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT8R4I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-18C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1800W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT8R4I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-18C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "1800W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT8R4I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-20C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT8R4I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-20C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT8R4I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-20C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT8R4I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-20C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT8R4I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-20C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT8R4I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-20C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT8R4I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-20C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT8R4I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-20C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT8R4I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-20C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT8R4I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-20C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT8R4I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-25C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT8R4I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-25C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT8R4I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-25C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT8R4I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-25C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT8R4I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-25C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT8R4I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-25C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT8R4I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-25C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT8R4I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-25C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT8R4I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-25C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT8R4I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-25C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-25C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-25C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-25C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-25C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-25C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-25C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-25C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-25C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-25C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-25C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-29C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2900W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-29C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2900W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-29C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2900W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-29C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2900W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-29C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "2900W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-29C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2900W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-29C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2900W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-29C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2900W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-29C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2900W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-29C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "2900W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-30C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "3000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-30C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "3000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-30C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "3000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-30C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "3000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-30C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "3000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT012I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-30C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "3000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT012I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-30C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "3000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT012I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-30C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "3000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT012I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-30C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "3000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT012I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-30C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "3000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT017I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-40C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "4000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT017I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-40C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "4000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT017I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-40C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "4000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT017I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-40C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "4000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT017I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-40C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "4000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT017I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-40C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "4000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT017I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-40C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "4000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT017I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-40C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "4000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT017I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-40C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "4000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT017I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-40C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "4000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT017I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-44C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "4400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT017I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-44C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "4400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT017I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-44C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "4400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT017I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-44C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "4400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT017I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-44C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "4400W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT017I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-44C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "4400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT017I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-44C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "4400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT017I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-44C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "4400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT017I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-44C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "4400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT017I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-44C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "4400W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT021I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-50C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "5000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT021I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-50C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "5000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT021I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-50C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "5000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT021I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-50C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "5000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT021I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-50C30CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "5000W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT021I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H2-50C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "5000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT021I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H2-50C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "5000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT021I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H2-50C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "5000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT021I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H2-50C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "5000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT021I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H2-50C30CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "5000W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT021I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-55C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "5500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT021I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-55C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "5500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT021I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-55C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "5500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT021I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-55C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "5500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT021I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-55C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "5500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT021I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-55C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "5500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT021I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-55C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "5500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT021I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-55C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "5500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT021I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-55C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "5500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT021I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-55C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "5500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660NT026I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-75C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "7500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660FT026I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-75C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "7500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660PT026I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-75C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "7500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660AT026I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-75C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "7500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660CT026I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-75C15CD-A331R-INT",
+        "cableCode":  "-",
+        "power":  "7500W",
+        "series":  "SV660",
+        "brake":  "Without"
+    },
+    {
+        "driveCode":  "SV660NT026I-INT",
+        "comm":  "EtherCAT",
+        "motorCode":  "MS1H3-75C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "7500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660FT026I-INT",
+        "comm":  "Profinet",
+        "motorCode":  "MS1H3-75C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "7500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660PT026I-INT",
+        "comm":  "Pulse",
+        "motorCode":  "MS1H3-75C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "7500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660AT026I-INT",
+        "comm":  "CANlink",
+        "motorCode":  "MS1H3-75C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "7500W",
+        "series":  "SV660",
+        "brake":  "With"
+    },
+    {
+        "driveCode":  "SV660CT026I-INT",
+        "comm":  "CANopen",
+        "motorCode":  "MS1H3-75C15CD-A334R-INT",
+        "cableCode":  "-",
+        "power":  "7500W",
+        "series":  "SV660",
+        "brake":  "With"
+    }
+]
+;

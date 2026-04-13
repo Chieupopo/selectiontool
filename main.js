@@ -1,0 +1,451 @@
+// Products Data
+const products = [
+    {
+        id: 1,
+        title: "Động Cơ Servo INOVANCE",
+        category: "servo",
+        categoryLabel: "Servo",
+        desc: "Hệ thống Servo INOVANCE cao cấp (dòng SV660/SV680) nổi tiếng với độ ổn định và chính xác cao. [Ấn vào đây để Tra cứu mã Servo].",
+        img: "https://stagro.com.vn/wp-content/uploads/2025/12/motor-servo-MS1H1-05B30CB-A330Z-INT-600x600.jpg",
+        openSelectionTool: true,
+        specs: {
+            "Dòng": "SV660 / SV680",
+            "Mạng truyền thông": "EtherCAT, CANopen, Pulse",
+            "Ứng dụng": "Tốc độ cao, độ chính xác cao"
+        }
+    },
+    {
+        id: 2,
+        title: "Biến Tần INOVANCE",
+        category: "inverter",
+        categoryLabel: "Biến Tần",
+        desc: "Dòng biến tần vector hiệu suất cao, điều khiển cực kỳ chính xác. [Ấn vào đây để Tra cứu mã Biến Tần].",
+        img: "assets/inverter.png",
+        openSelectionTool: true, // Enable selection tool for inverter
+        specs: {
+            "Công Suất": "0.4kW - 500kW",
+            "Điện Áp": "1 Pha 220V / 3 Pha 380V",
+            "Tính Năng": "PID control, V/F & Vector control"
+        }
+    },
+    {
+        id: 3,
+        title: "PLC INOVANCE",
+        category: "plc",
+        categoryLabel: "PLC",
+        desc: "Dòng PLC thế hệ mới tích hợp IIoT (Industrial IoT), vi xử lý kép giúp máy vận hành siêu nhanh. Hàng ngàn I/O phức tạp.",
+        img: "https://stagro.com.vn/wp-content/uploads/2025/12/PLC-522-600x527.png",
+        specs: {
+            "Số I/O Tối Đa": "2048 điểm",
+            "Bộ Nhớ Chương Trình": "64k Steps",
+            "Tích hợp": "Ethernet, RS485, CANopen"
+        }
+    }
+];
+
+// Elements
+const productGrid = document.getElementById('product-grid');
+const gridContainer = productGrid; // alias
+const selectionToolContainer = document.getElementById('selection-tool');
+const modal = document.getElementById('product-modal');
+const closeBtn = document.querySelector('.close-btn');
+const modalImg = document.getElementById('modal-img');
+const modalCategory = document.getElementById('modal-category');
+const modalTitle = document.getElementById('modal-title');
+const modalDesc = document.getElementById('modal-desc');
+const modalSpecs = document.getElementById('modal-specs');
+
+// Render Products
+function renderProducts() {
+    gridContainer.innerHTML = '';
+    products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        
+        card.innerHTML = `
+            <div class="card-img-wrapper">
+                <img src="${product.img}" alt="${product.title}">
+            </div>
+            <div class="card-content">
+                <span class="badge ${product.category}">${product.categoryLabel}</span>
+                <h3 class="card-title">${product.title}</h3>
+                <p class="card-desc">${product.desc.substring(0, 85)}...</p>
+            </div>
+        `;
+        
+        card.addEventListener('click', () => {
+            if (product.openSelectionTool) {
+                // Mở công cụ tra cứu theo Dòng thiết bị
+                gridContainer.style.display = 'none';
+                selectionToolContainer.style.display = 'flex';
+                setupSelectionTool(product.category);
+            } else {
+                openModal(product);
+            }
+        });
+        gridContainer.appendChild(card);
+    });
+}
+
+// -----------------------------------------------------
+// LỌC DỮ LIỆU BẢNG (SELECTION TOOL LOGIC)
+// -----------------------------------------------------
+
+// Filter Elements
+const filterSeries = document.getElementById('filter-series');
+const filterPower = document.getElementById('filter-power');
+const filterBrake = document.getElementById('filter-brake');
+const filterComm = document.getElementById('filter-comm');
+const filterPhase = document.getElementById('filter-phase');
+const btnReset = document.getElementById('btn-reset');
+const btnBack = document.getElementById('btn-back');
+const resultsTbody = document.getElementById('results-tbody');
+const noResults = document.getElementById('no-results');
+const resultsTable = document.getElementById('results-table');
+const resultsThead = document.getElementById('results-thead');
+
+// Wrapper Elements
+const brakeWrapper = document.getElementById('filter-brake-wrapper');
+const commWrapper = document.getElementById('filter-comm-wrapper');
+const phaseWrapper = document.getElementById('filter-phase-wrapper');
+
+let currentToolType = '';
+
+function setupSelectionTool(type) {
+    currentToolType = type;
+    
+    // Clear Existing Configs
+    filterSeries.innerHTML = '<option value="">-- Tất cả --</option>';
+    filterPower.innerHTML = '<option value="">-- Tất cả --</option>';
+    filterBrake.innerHTML = '<option value="">-- Tất cả --</option>';
+    filterComm.innerHTML = '<option value="">-- Tất cả --</option>';
+    filterPhase.innerHTML = '<option value="">-- Tất cả --</option>';
+
+    let seriesSet = new Set();
+    let powerSet = new Set();
+    
+    if (type === 'servo') {
+        brakeWrapper.style.display = 'flex';
+        commWrapper.style.display = 'flex';
+        phaseWrapper.style.display = 'none';
+        
+        resultsThead.innerHTML = `
+            <tr>
+                <th>Mã Động Cơ (Motor Code)</th>
+                <th>Mã Driver (Drive Code)</th>
+                <th>Mã Dây Diện (Cable)</th>
+                <th>Mã Dây Encoder</th>
+            </tr>
+        `;
+        
+        let brakeSet = new Set();
+        let commSet = new Set();
+        
+        selectionData.forEach(item => {
+            if (item.series) seriesSet.add(item.series);
+            if (item.power) powerSet.add(item.power);
+            if (item.brake) brakeSet.add(item.brake);
+            if (item.comm) commSet.add(item.comm);
+        });
+
+        // Add brake custom naming
+        brakeSet.forEach(opt => {
+            const option = document.createElement('option');
+            option.value = opt;
+            if (opt === "Without") option.textContent = "Không thắng (Without)";
+            else if (opt === "With") option.textContent = "Có thắng (With)";
+            else option.textContent = opt;
+            filterBrake.appendChild(option);
+        });
+
+        const commArr = Array.from(commSet).sort();
+        commArr.forEach(opt => {
+            const option = document.createElement('option');
+            option.value = opt;
+            option.textContent = opt;
+            filterComm.appendChild(option);
+        });
+
+    } else if (type === 'inverter') {
+        brakeWrapper.style.display = 'none';
+        commWrapper.style.display = 'none';
+        phaseWrapper.style.display = 'flex';
+        
+        resultsThead.innerHTML = `
+            <tr>
+                <th>Mã Đặt Hàng (Model Code)</th>
+                <th>Thông số (Description)</th>
+                <th>Cuộn Kháng Đầu Vào (Input Reactor)</th>
+                <th>Điện Trở Xả (Braking Resistor)</th>
+            </tr>
+        `;
+        
+        let phaseSet = new Set();
+        
+        inverterData.forEach(item => {
+            if (item.series) seriesSet.add(item.series);
+            if (item.phase) phaseSet.add(item.phase);
+        });
+
+        const phaseArr = Array.from(phaseSet).sort();
+        phaseArr.forEach(opt => {
+            const option = document.createElement('option');
+            option.value = opt;
+            option.textContent = opt;
+            filterPhase.appendChild(option);
+        });
+    }
+
+    const seriesArr = Array.from(seriesSet).sort();
+    seriesArr.forEach(opt => {
+        const option = document.createElement('option');
+        option.value = opt;
+        option.textContent = opt;
+        filterSeries.appendChild(option);
+    });
+
+    // Initial popupate of Power based on selected series
+    updateDynamicFilters();
+
+    // Auto load data for current tool
+    filterSelectionData();
+}
+
+function updateDynamicFilters() {
+    const s_series = filterSeries.value;
+    const currentPowerVal = filterPower.value;
+    const currentPhaseVal = filterPhase.value;
+    
+    let dataset = currentToolType === 'servo' ? selectionData : inverterData;
+    let powerSet = new Set();
+    let phaseSet = new Set();
+    
+    dataset.forEach(item => {
+        if (s_series === "" || item.series === s_series) {
+            if (item.power && item.power !== '-') powerSet.add(item.power);
+            if (currentToolType === 'inverter' && item.phase) phaseSet.add(item.phase);
+        }
+    });
+
+    filterPower.innerHTML = '<option value="">-- Tất cả --</option>';
+    if (currentToolType === 'inverter') {
+        filterPhase.innerHTML = '<option value="">-- Tất cả --</option>';
+    }
+
+    const sortedPowers = Array.from(powerSet).sort((a, b) => {
+        let valA = parseFloat(a) || 0;
+        let valB = parseFloat(b) || 0;
+        if (a.toLowerCase().includes('k')) valA *= 1000;
+        if (b.toLowerCase().includes('k')) valB *= 1000;
+        return valA - valB;
+    });
+
+    let keepSelected = false;
+    sortedPowers.forEach(opt => {
+        const option = document.createElement('option');
+        option.value = opt;
+        
+        // Append kW for inverter if it's missing a generic w/W designator
+        if (currentToolType === 'inverter' && !opt.toLowerCase().includes('w')) {
+            option.textContent = opt + " kW";
+        } else {
+            option.textContent = opt;
+        }
+
+        filterPower.appendChild(option);
+        if (opt === currentPowerVal) keepSelected = true;
+    });
+
+    if (keepSelected) {
+        filterPower.value = currentPowerVal;
+    } else {
+        filterPower.value = '';
+    }
+
+    if (currentToolType === 'inverter') {
+        let keepSelectedPhase = false;
+        const sortedPhases = Array.from(phaseSet).sort();
+        
+        sortedPhases.forEach(opt => {
+            const option = document.createElement('option');
+            option.value = opt;
+            option.textContent = opt;
+            filterPhase.appendChild(option);
+            if (opt === currentPhaseVal) keepSelectedPhase = true;
+        });
+
+        if (keepSelectedPhase) {
+            filterPhase.value = currentPhaseVal;
+        } else {
+            filterPhase.value = '';
+        }
+    }
+}
+
+const filtersArr = [filterPower, filterBrake, filterComm, filterPhase];
+filtersArr.forEach(f => {
+    f.addEventListener('change', filterSelectionData);
+});
+
+filterSeries.addEventListener('change', () => {
+    updateDynamicFilters();
+    filterSelectionData();
+});
+
+btnReset.addEventListener('click', () => {
+    filterSeries.value = '';
+    updateDynamicFilters();
+    filtersArr.forEach(f => f.value = '');
+    filterSelectionData();
+});
+
+btnBack.addEventListener('click', () => {
+    selectionToolContainer.style.display = 'none';
+    gridContainer.style.display = 'grid';
+});
+
+function filterSelectionData() {
+    const s_series = filterSeries.value;
+    const s_power = filterPower.value;
+    const s_brake = filterBrake.value;
+    const s_comm = filterComm.value;
+    const s_phase = filterPhase.value;
+
+    let filtered = [];
+
+    if (currentToolType === 'servo') {
+        filtered = selectionData.filter(item => {
+            return (s_series === "" || item.series === s_series) &&
+                   (s_power === "" || item.power === s_power) &&
+                   (s_brake === "" || item.brake === s_brake) &&
+                   (s_comm === "" || item.comm === s_comm);
+        });
+    } else if (currentToolType === 'inverter') {
+        filtered = inverterData.filter(item => {
+            return (s_series === "" || item.series === s_series) &&
+                   (s_power === "" || item.power === s_power) &&
+                   (s_phase === "" || item.phase === s_phase);
+        });
+    }
+
+    renderTable(filtered);
+}
+
+function renderTable(data) {
+    resultsTbody.innerHTML = '';
+    
+    if (data.length === 0) {
+        resultsTable.style.display = 'none';
+        noResults.style.display = 'block';
+    } else {
+        resultsTable.style.display = 'table';
+        noResults.style.display = 'none';
+        
+        const limit = 15;
+        const displayData = data.slice(0, limit);
+        
+        displayData.forEach(item => {
+            const tr = document.createElement('tr');
+            
+            if (currentToolType === 'servo') {
+                let pCable = item.cableCode && item.cableCode !== "-" ? item.cableCode : "-";
+                let eCable = item.encoderCable && item.encoderCable !== "-" ? item.encoderCable : "-";
+
+                const mc = item.motorCode || "";
+                
+                // Phân tích công suất MS1H2/MS1H3
+                const powerStr = item.power || "";
+                let powerW = 0;
+                if (powerStr.toLowerCase().includes('k')) {
+                    powerW = parseFloat(powerStr) * 1000;
+                } else if (powerStr.toLowerCase().includes('w')) {
+                    powerW = parseFloat(powerStr);
+                }
+
+                if (mc.startsWith("MS1H2")) {
+                    if (item.brake === "Without") eCable = "S6-L-P121-5.0-INT";
+                    if (powerW <= 3000) {
+                        pCable = item.brake === "Without" ? "S6-L-M111-5.0-INT" : "S6-L-B111-5.0-INT";
+                    } else if (powerW === 4000 || powerW === 5000) {
+                        pCable = item.brake === "Without" ? "S6-L-M011-5.0-INT" : "S6-L-B011-5.0-INT";
+                    }
+                } else if (mc.startsWith("MS1H3")) {
+                    if (item.brake === "Without") eCable = "S6-L-P121-5.0-INT";
+                    if (powerW <= 1800) {
+                        pCable = item.brake === "Without" ? "S6-L-M111-5.0-INT" : "S6-L-B111-5.0-INT";
+                    } else if (powerW === 2900) {
+                        pCable = item.brake === "Without" ? "S6-L-M112-5.0-INT" : "S6-L-B112-5.0-INT";
+                    } else if (powerW === 4400 || powerW === 5500 || powerW === 7500) {
+                        pCable = item.brake === "Without" ? "S6-L-M022-5.0-INT" : "S6-L-B022-5.0-INT";
+                    }
+                } else if (mc.startsWith("MS1H1") || mc.startsWith("MS1H4")) {
+                    eCable = "S6-L-P125-5.0-INT";
+                    if (item.brake === "Without") pCable = "S6-L-M108-5.0-INT";
+                    else if (item.brake === "With") pCable = "S6-L-B108-5.0-INT";
+                }
+
+                tr.innerHTML = `
+                    <td class="code-highlight" style="color: #0f172a;">${mc || '-'}</td>
+                    <td class="code-highlight" style="color: #e11d48;">${item.driveCode || '-'}</td>
+                    <td class="code-highlight" style="color: #b45309;">${pCable}</td>
+                    <td class="code-highlight" style="color: #2563eb;">${eCable}</td>
+                `;
+            } else if (currentToolType === 'inverter') {
+                tr.innerHTML = `
+                    <td class="code-highlight" style="color: #c2410c;">${item.modelCode || '-'}</td>
+                    <td style="color: #475569; font-size: 0.95rem;">${item.description || '-'}</td>
+                    <td class="code-highlight" style="color: #0f172a;">${item.acInputReactor || '-'}</td>
+                    <td class="code-highlight" style="color: #2563eb;">${item.brakingResistor || '-'}</td>
+                `;
+            }
+            
+            resultsTbody.appendChild(tr);
+        });
+        
+        if (data.length > limit) {
+             const tr = document.createElement('tr');
+             tr.innerHTML = `<td colspan="4" style="text-align:center; padding:15px; color:#64748b; font-size:0.95rem; font-style:italic; background:var(--bg-card);">
+                 Còn hơn <b>${data.length - limit}</b> kết quả khác. Vui lòng chọn thêm Bộ Lọc ☝️ để tìm chính xác mã bạn cần.
+             </td>`;
+             resultsTbody.appendChild(tr);
+        }
+    }
+}
+
+// Modal Functions
+function openModal(product) {
+    modalImg.src = product.img;
+    modalCategory.className = `badge ${product.category}`;
+    modalCategory.textContent = product.categoryLabel;
+    modalTitle.textContent = product.title;
+    modalDesc.textContent = product.desc;
+    
+    modalSpecs.innerHTML = '';
+    for (const [key, value] of Object.entries(product.specs)) {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${key}</span> <span>${value}</span>`;
+        modalSpecs.appendChild(li);
+    }
+    
+    modal.classList.add('show');
+}
+
+function setupModalEvents() {
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('show');
+    });
+    
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('show');
+        }
+    });
+}
+
+// Initialize App
+function init() {
+    renderProducts();
+    setupModalEvents();
+}
+
+document.addEventListener('DOMContentLoaded', init);
