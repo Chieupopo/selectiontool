@@ -16,7 +16,7 @@
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Inter', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-primary);
     min-height: 100vh;
@@ -83,11 +83,30 @@ header h1 {
 }
 
 header h1 span {
-    background: linear-gradient(to right, #ea580c, #fbbf24);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    background: none;
+    -webkit-text-fill-color: inherit;
+    color: var(--accent);
+}
+
+@keyframes titleBlink {
+    0%, 100% { 
+        color: #ffffff; 
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.6), 2px 2px 8px rgba(0,0,0,0.5); 
+    }
+    50% { 
+        color: var(--text-primary); 
+        text-shadow: 2px 2px 2px rgba(0,0,0,0.15); 
+    }
+}
+
+.blink-shadow-text {
+    color: var(--text-primary); 
+    animation: titleBlink 3s infinite ease-in-out;
+}
+
+.blink-shadow-text span {
+    color: var(--accent) !important;
+    text-shadow: inherit;
 }
 
 header p {
