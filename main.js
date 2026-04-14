@@ -457,10 +457,37 @@ function setupModalEvents() {
     });
 }
 
+// Falling Stars Effect
+function createStars() {
+    const stellarBg = document.getElementById('stellar-bg');
+    if (!stellarBg) return;
+    const starCount = 30; // Vừa đủ lấp lánh không bị rối
+    
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'falling-star';
+        // Randomize position
+        star.style.left = `${Math.random() * 100}vw`;
+        // Randomize speed
+        star.style.animationDuration = `${5 + Math.random() * 8}s`;
+        // Randomize delay to stagger them
+        star.style.animationDelay = `${Math.random() * -10}s`;
+        
+        // Randomize size
+        const size = Math.random() * 3 + 2;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.opacity = Math.random() * 0.5 + 0.3;
+        
+        stellarBg.appendChild(star);
+    }
+}
+
 // Initialize App
 function init() {
     renderProducts();
     setupModalEvents();
+    createStars();
 }
 
 document.addEventListener('DOMContentLoaded', init);

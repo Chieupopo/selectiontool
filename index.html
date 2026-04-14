@@ -44,9 +44,59 @@
             }
             .search-box, .search-box input { width: 100%; }
         }
+
+        /* Sao rơi lấp lánh */
+        #stellar-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .falling-star {
+            position: absolute;
+            top: -20px;
+            background: #60a5fa; /* Màu xanh nước biển nhạt */
+            border-radius: 50%;
+            box-shadow: 0 0 10px #3b82f6, 0 0 20px #93c5fd, 0 0 30px #ffffff;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-20px) translateX(0) scale(1); opacity: 0; }
+            10% { opacity: 0.9; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(110vh) translateX(50px) scale(0.2); opacity: 0; }
+        }
+
+        /* Icon đáng yêu */
+        .cute-corner {
+            position: fixed;
+            bottom: 30px;
+            font-size: 3rem;
+            z-index: 100;
+            animation: bounceFloat 3s infinite ease-in-out;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s;
+        }
+        .cute-corner:hover {
+            animation-play-state: paused;
+            transform: scale(1.3) translateY(-10px) rotate(10deg);
+        }
+        .cute-corner.left-corner { left: 40px; animation-delay: 0s; }
+        .cute-corner.right-corner { right: 40px; animation-delay: 1.5s; }
+
+        @keyframes bounceFloat {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
     </style>
 </head>
 <body>
+    <div id="stellar-bg"></div>
     <div class="glass-bg"></div>
     <div class="glow glowing-blue"></div>
     <div class="glow glowing-purple"></div>
@@ -153,6 +203,9 @@
             </div>
         </div>
     </div>
+    <!-- Góc Icon đáng yêu -->
+    <div class="cute-corner left-corner" title="Automate Everything">🤖</div>
+    <div class="cute-corner right-corner" title="Rocket Speed Selector">🚀</div>
 
     <script src="data.js"></script>
     <script src="data_inverter.js"></script>
