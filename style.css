@@ -495,4 +495,12 @@ header p {
     .specs li { flex-direction: column; gap: 5px; }
     .specs li span:last-child { text-align: left; }
     .filter-group { grid-template-columns: 1fr; }
+    .filter-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .search-box, .search-box input {
+        width: 100%;
+    }
 }

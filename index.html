@@ -6,6 +6,45 @@
     <title>Hệ Thống Thiết Bị Tự Động Hóa</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .filter-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .filter-header-row h2 {
+            margin-bottom: 0 !important;
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+        }
+        .search-box input {
+            padding: 10px 15px;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            width: 280px;
+            transition: all 0.3s ease;
+            background: #fff;
+            color: var(--text-primary);
+        }
+        .search-box input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+        @media (max-width: 600px) {
+            .filter-header-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .search-box, .search-box input { width: 100%; }
+        }
+    </style>
 </head>
 <body>
     <div class="glass-bg"></div>
@@ -28,7 +67,12 @@
             <div id="selection-tool" class="selection-tool" style="display: none;">
                 <button id="btn-back" class="btn-secondary" style="align-self: flex-start; margin-bottom: 10px;">&larr; Quay lại Danh Mục</button>
                 <div class="filters-container glass-panel-ui">
-                    <h2>BỘ LỌC TÌM KIẾM</h2>
+                    <div class="filter-header-row">
+                        <h2>BỘ LỌC TÌM KIẾM</h2>
+                        <div class="search-box">
+                            <input type="text" id="search-model" placeholder="Nhập mã máy hoặc motor..." autocomplete="off">
+                        </div>
+                    </div>
                     <div class="filter-group">
                         <div class="filter-item">
                             <label>Dòng thiết bị (Series)</label>

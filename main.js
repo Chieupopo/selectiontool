@@ -287,6 +287,9 @@ filtersArr.forEach(f => {
     f.addEventListener('change', filterSelectionData);
 });
 
+const searchInput = document.getElementById('search-model');
+searchInput.addEventListener('input', filterSelectionData);
+
 filterSeries.addEventListener('change', () => {
     updateDynamicFilters();
     filterSelectionData();
@@ -294,6 +297,7 @@ filterSeries.addEventListener('change', () => {
 
 btnReset.addEventListener('click', () => {
     filterSeries.value = '';
+    searchInput.value = '';
     updateDynamicFilters();
     filtersArr.forEach(f => f.value = '');
     filterSelectionData();
@@ -310,19 +314,30 @@ function filterSelectionData() {
     const s_brake = filterBrake.value;
     const s_comm = filterComm.value;
     const s_phase = filterPhase.value;
+    const s_search = searchInput.value.toLowerCase().trim();
 
     let filtered = [];
 
     if (currentToolType === 'servo') {
         filtered = selectionData.filter(item => {
-            return (s_series === "" || item.series === s_series) &&
+            const matchesSearch = s_search === "" || 
+                                  (item.driveCode && item.driveCode.toLowerCase().includes(s_search)) || 
+                                  (item.motorCode && item.motorCode.toLowerCase().includes(s_search));
+            
+            return matchesSearch &&
+                   (s_series === "" || item.series === s_series) &&
                    (s_power === "" || item.power === s_power) &&
                    (s_brake === "" || item.brake === s_brake) &&
                    (s_comm === "" || item.comm === s_comm);
         });
     } else if (currentToolType === 'inverter') {
         filtered = inverterData.filter(item => {
-            return (s_series === "" || item.series === s_series) &&
+            const matchesSearch = s_search === "" || 
+                                  (item.modelNumber && item.modelNumber.toLowerCase().includes(s_search)) || 
+                                  (item.description && item.description.toLowerCase().includes(s_search));
+                                  
+            return matchesSearch &&
+                   (s_series === "" || item.series === s_series) &&
                    (s_power === "" || item.power === s_power) &&
                    (s_phase === "" || item.phase === s_phase);
         });
