@@ -130,7 +130,7 @@
                                 <option value="">-- Tất cả --</option>
                             </select>
                         </div>
-                        <div class="filter-item">
+                        <div class="filter-item" id="filter-power-wrapper">
                             <label>Công suất (Power)</label>
                             <select id="filter-power">
                                 <option value="">-- Tất cả --</option>
@@ -151,6 +151,12 @@
                         <div class="filter-item" id="filter-phase-wrapper" style="display: none;">
                             <label>Điện Áp (Power Supply)</label>
                             <select id="filter-phase">
+                                <option value="">-- Tất cả --</option>
+                            </select>
+                        </div>
+                        <div class="filter-item" id="filter-model-wrapper" style="display: none;">
+                            <label>Mã Model (Model Number)</label>
+                            <select id="filter-model">
                                 <option value="">-- Tất cả --</option>
                             </select>
                         </div>
@@ -209,6 +215,7 @@
 
     <script src="data.js"></script>
     <script src="data_inverter.js"></script>
+    <script src="data_plc.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -33,8 +33,9 @@ const products = [
         title: "PLC INOVANCE",
         category: "plc",
         categoryLabel: "PLC",
-        desc: "Dòng PLC thế hệ mới tích hợp IIoT (Industrial IoT), vi xử lý kép giúp máy vận hành siêu nhanh. Hàng ngàn I/O phức tạp.",
+        desc: "Dòng PLC thế hệ mới tích hợp IIoT (Industrial IoT), vi xử lý kép giúp máy vận hành siêu nhanh. [Ấn vào đây để Tra cứu mã PLC].",
         img: "https://stagro.com.vn/wp-content/uploads/2025/12/PLC-522-600x527.png",
+        openSelectionTool: true,
         specs: {
             "Số I/O Tối Đa": "2048 điểm",
             "Bộ Nhớ Chương Trình": "64k Steps",
@@ -97,6 +98,7 @@ const filterPower = document.getElementById('filter-power');
 const filterBrake = document.getElementById('filter-brake');
 const filterComm = document.getElementById('filter-comm');
 const filterPhase = document.getElementById('filter-phase');
+const filterModel = document.getElementById('filter-model');
 const btnReset = document.getElementById('btn-reset');
 const btnBack = document.getElementById('btn-back');
 const resultsTbody = document.getElementById('results-tbody');
@@ -105,9 +107,11 @@ const resultsTable = document.getElementById('results-table');
 const resultsThead = document.getElementById('results-thead');
 
 // Wrapper Elements
+const powerWrapper = document.getElementById('filter-power-wrapper');
 const brakeWrapper = document.getElementById('filter-brake-wrapper');
 const commWrapper = document.getElementById('filter-comm-wrapper');
 const phaseWrapper = document.getElementById('filter-phase-wrapper');
+const modelWrapper = document.getElementById('filter-model-wrapper');
 
 let currentToolType = '';
 
@@ -120,14 +124,17 @@ function setupSelectionTool(type) {
     filterBrake.innerHTML = '<option value="">-- Tất cả --</option>';
     filterComm.innerHTML = '<option value="">-- Tất cả --</option>';
     filterPhase.innerHTML = '<option value="">-- Tất cả --</option>';
+    filterModel.innerHTML = '<option value="">-- Tất cả --</option>';
 
     let seriesSet = new Set();
     let powerSet = new Set();
     
     if (type === 'servo') {
+        powerWrapper.style.display = 'flex';
         brakeWrapper.style.display = 'flex';
         commWrapper.style.display = 'flex';
         phaseWrapper.style.display = 'none';
+        modelWrapper.style.display = 'none';
         
         resultsThead.innerHTML = `
             <tr>
@@ -194,6 +201,23 @@ function setupSelectionTool(type) {
             option.textContent = opt;
             filterPhase.appendChild(option);
         });
+    } else if (type === 'plc') {
+        powerWrapper.style.display = 'none';
+        brakeWrapper.style.display = 'none';
+        commWrapper.style.display = 'none';
+        phaseWrapper.style.display = 'none';
+        modelWrapper.style.display = 'flex';
+        
+        resultsThead.innerHTML = `
+            <tr>
+                <th>Mã Model (Model Number)</th>
+                <th>Thông số (Description)</th>
+            </tr>
+        `;
+        
+        plcData.forEach(item => {
+            if (item.series) seriesSet.add(item.series);
+        });
     }
 
     const seriesArr = Array.from(seriesSet).sort();
@@ -215,21 +239,27 @@ function updateDynamicFilters() {
     const s_series = filterSeries.value;
     const currentPowerVal = filterPower.value;
     const currentPhaseVal = filterPhase.value;
+    const currentModelVal = filterModel.value;
     
-    let dataset = currentToolType === 'servo' ? selectionData : inverterData;
+    let dataset = currentToolType === 'servo' ? selectionData : (currentToolType === 'inverter' ? inverterData : plcData);
     let powerSet = new Set();
     let phaseSet = new Set();
+    let modelSet = new Set();
     
     dataset.forEach(item => {
         if (s_series === "" || item.series === s_series) {
-            if (item.power && item.power !== '-') powerSet.add(item.power);
+            if (currentToolType !== 'plc' && item.power && item.power !== '-') powerSet.add(item.power);
             if (currentToolType === 'inverter' && item.phase) phaseSet.add(item.phase);
+            if (currentToolType === 'plc' && item.modelNumber) modelSet.add(item.modelNumber);
         }
     });
 
     filterPower.innerHTML = '<option value="">-- Tất cả --</option>';
     if (currentToolType === 'inverter') {
         filterPhase.innerHTML = '<option value="">-- Tất cả --</option>';
+    }
+    if (currentToolType === 'plc') {
+        filterModel.innerHTML = '<option value="">-- Tất cả --</option>';
     }
 
     const sortedPowers = Array.from(powerSet).sort((a, b) => {
@@ -280,9 +310,28 @@ function updateDynamicFilters() {
             filterPhase.value = '';
         }
     }
+    
+    if (currentToolType === 'plc') {
+        let keepSelectedModel = false;
+        const sortedModels = Array.from(modelSet).sort();
+        
+        sortedModels.forEach(opt => {
+            const option = document.createElement('option');
+            option.value = opt;
+            option.textContent = opt;
+            filterModel.appendChild(option);
+            if (opt === currentModelVal) keepSelectedModel = true;
+        });
+
+        if (keepSelectedModel) {
+            filterModel.value = currentModelVal;
+        } else {
+            filterModel.value = '';
+        }
+    }
 }
 
-const filtersArr = [filterPower, filterBrake, filterComm, filterPhase];
+const filtersArr = [filterPower, filterBrake, filterComm, filterPhase, filterModel];
 filtersArr.forEach(f => {
     f.addEventListener('change', filterSelectionData);
 });
@@ -340,6 +389,17 @@ function filterSelectionData() {
                    (s_series === "" || item.series === s_series) &&
                    (s_power === "" || item.power === s_power) &&
                    (s_phase === "" || item.phase === s_phase);
+        });
+    } else if (currentToolType === 'plc') {
+        const s_model = filterModel.value;
+        filtered = plcData.filter(item => {
+            const matchesSearch = s_search === "" || 
+                                  (item.modelNumber && item.modelNumber.toLowerCase().includes(s_search)) || 
+                                  (item.description && item.description.toLowerCase().includes(s_search));
+            
+            return matchesSearch &&
+                   (s_series === "" || item.series === s_series) &&
+                   (s_model === "" || item.modelNumber === s_model);
         });
     }
 
@@ -412,6 +472,11 @@ function renderTable(data) {
                     <td class="code-highlight" style="color: #0f172a;">${item.acInputReactor || '-'}</td>
                     <td class="code-highlight" style="color: #2563eb;">${item.brakingResistor || '-'}</td>
                 `;
+            } else if (currentToolType === 'plc') {
+                tr.innerHTML = `
+                    <td class="code-highlight" style="color: #059669;">${item.modelNumber || '-'}</td>
+                    <td style="color: #475569; font-size: 0.95rem; line-height: 1.5;">${item.description || '-'}</td>
+                `;
             }
             
             resultsTbody.appendChild(tr);
@@ -419,7 +484,8 @@ function renderTable(data) {
         
         if (data.length > limit) {
              const tr = document.createElement('tr');
-             tr.innerHTML = `<td colspan="4" style="text-align:center; padding:15px; color:#64748b; font-size:0.95rem; font-style:italic; background:var(--bg-card);">
+             const colCount = currentToolType === 'servo' || currentToolType === 'inverter' ? 4 : 2;
+             tr.innerHTML = `<td colspan="${colCount}" style="text-align:center; padding:15px; color:#64748b; font-size:0.95rem; font-style:italic; background:var(--bg-card);">
                  Còn hơn <b>${data.length - limit}</b> kết quả khác. Vui lòng chọn thêm Bộ Lọc ☝️ để tìm chính xác mã bạn cần.
              </td>`;
              resultsTbody.appendChild(tr);
