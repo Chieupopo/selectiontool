@@ -133,8 +133,11 @@ const seriesWrapper = document.getElementById('filter-series-wrapper');
 
 let currentToolType = '';
 let masterData = [];
+let selectedExportItems = new Set(); // Stores uids of selected items for export
 
 function buildMasterData() {
+    masterData = [];
+    let uidCounter = 1;
     masterData = [];
     selectionData.forEach(item => {
         masterData.push({
@@ -145,7 +148,8 @@ function buildMasterData() {
             aux1: item.driveCode || '-',
             aux2: item.cableCode || '-',
             aux3: item.encoderCable || '-',
-            searchStr: (item.motorCode + " " + item.driveCode + " " + item.series).toLowerCase()
+            searchStr: (item.motorCode + " " + item.driveCode + " " + item.series).toLowerCase(),
+            uid: 'servo_' + uidCounter++
         });
     });
     inverterData.forEach(item => {
@@ -157,7 +161,8 @@ function buildMasterData() {
             aux1: item.description || '-',
             aux2: item.acInputReactor || '-',
             aux3: item.brakingResistor || '-',
-            searchStr: (item.modelCode + " " + item.description + " " + item.series).toLowerCase()
+            searchStr: (item.modelCode + " " + item.description + " " + item.series).toLowerCase(),
+            uid: 'inv_' + uidCounter++
         });
     });
     plcData.forEach(item => {
@@ -169,7 +174,8 @@ function buildMasterData() {
             aux1: item.description || '-',
             aux2: '-',
             aux3: '-',
-            searchStr: (item.modelNumber + " " + item.description + " " + item.series).toLowerCase()
+            searchStr: (item.modelNumber + " " + item.description + " " + item.series).toLowerCase(),
+            uid: 'plc_' + uidCounter++
         });
     });
 }
@@ -294,6 +300,7 @@ function setupSelectionTool(type) {
         
         resultsThead.innerHTML = `
             <tr>
+                <th style="width: 40px; text-align: center;"><input type="checkbox" id="selectAllExport" style="cursor: pointer;"></th>
                 <th>Ngành hàng (Category)</th>
                 <th>Mã Sản Phẩm (Main Code)</th>
                 <th>Thông số bổ trợ 1</th>
@@ -333,11 +340,16 @@ function updateDynamicFilters() {
     let powerSet = new Set();
     let phaseSet = new Set();
     let modelSet = new Set();
+    let exportSeriesSet = new Set();
     
     dataset.forEach(item => {
         // If export tool and category is selected, we filter out dataset dynamically
         const catValue = filterCategory.value;
         const matchesCategory = currentToolType !== 'export' || catValue === "" || item.category === catValue;
+        
+        if (currentToolType === 'export' && matchesCategory && item.series) {
+            exportSeriesSet.add(item.series);
+        }
         
         if (matchesCategory && (s_series === "" || item.series === s_series)) {
             if (currentToolType !== 'plc' && currentToolType !== 'export' && item.power && item.power !== '-') powerSet.add(item.power);
@@ -345,6 +357,20 @@ function updateDynamicFilters() {
             if (currentToolType === 'plc' && item.modelNumber) modelSet.add(item.modelNumber);
         }
     });
+
+    if (currentToolType === 'export') {
+        filterSeries.innerHTML = '<option value="">-- Tất cả --</option>';
+        const sArr = Array.from(exportSeriesSet).sort();
+        let keepSelectedSeries = false;
+        sArr.forEach(opt => {
+            const option = document.createElement('option');
+            option.value = opt;
+            option.textContent = opt;
+            filterSeries.appendChild(option);
+            if (opt === s_series) keepSelectedSeries = true;
+        });
+        if (keepSelectedSeries) filterSeries.value = s_series;
+    }
 
     filterPower.innerHTML = '<option value="">-- Tất cả --</option>';
     if (currentToolType === 'inverter') {
@@ -577,7 +603,9 @@ function renderTable(data, showAll = false) {
                     <td style="color: #475569; font-size: 0.95rem; line-height: 1.5;">${item.description || '-'}</td>
                 `;
             } else if (currentToolType === 'export') {
+                const isSelected = selectedExportItems.has(item.uid);
                 tr.innerHTML = `
+                    <td style="text-align: center;"><input type="checkbox" class="export-checkbox" data-uid="${item.uid}" ${isSelected ? 'checked' : ''} style="cursor: pointer; width: 16px; height: 16px;"></td>
                     <td><span class="badge ${item.category}" style="display:inline-block; font-size: 0.8rem;">${item.categoryLabel}</span></td>
                     <td class="code-highlight" style="color: #059669;">${item.mainCode || '-'}</td>
                     <td style="color: #475569; font-size: 0.9rem; line-height: 1.5;">${item.aux1 || '-'}</td>
@@ -591,7 +619,7 @@ function renderTable(data, showAll = false) {
         
         if (!showAll && data.length > limit) {
              const tr = document.createElement('tr');
-             const colCount = currentToolType === 'servo' || currentToolType === 'inverter' ? 4 : (currentToolType === 'export' ? 5 : 2);
+             const colCount = currentToolType === 'servo' || currentToolType === 'inverter' ? 4 : (currentToolType === 'export' ? 6 : 2);
              tr.innerHTML = `<td colspan="${colCount}" style="text-align:center; padding:20px; background:rgba(255,255,255,0.5);">
                  <p style="margin-bottom: 12px; color:#64748b; font-size:0.95rem; font-style:italic;">
                     Còn hơn <b>${data.length - limit}</b> kết quả khác.
@@ -606,6 +634,10 @@ function renderTable(data, showAll = false) {
                  renderTable(data, true);
              });
         }
+    }
+    
+    if (currentToolType === 'export') {
+        updateSelectAllState();
     }
 }
 
@@ -665,6 +697,48 @@ function createStars() {
     }
 }
 
+// Delegate Checkbox Events
+resultsTable.addEventListener('change', (e) => {
+    if (e.target.classList.contains('export-checkbox')) {
+        const uid = e.target.getAttribute('data-uid');
+        if (e.target.checked) {
+            selectedExportItems.add(uid);
+        } else {
+            selectedExportItems.delete(uid);
+        }
+        updateSelectAllState();
+    } else if (e.target.id === 'selectAllExport') {
+        const isChecked = e.target.checked;
+        const visibleCheckboxes = document.querySelectorAll('.export-checkbox');
+        visibleCheckboxes.forEach(cb => {
+            cb.checked = isChecked;
+            const uid = cb.getAttribute('data-uid');
+            if (isChecked) {
+                selectedExportItems.add(uid);
+            } else {
+                selectedExportItems.delete(uid);
+            }
+        });
+    }
+});
+
+function updateSelectAllState() {
+    const selectAllBtn = document.getElementById('selectAllExport');
+    if (!selectAllBtn) return;
+    
+    const visibleCheckboxes = document.querySelectorAll('.export-checkbox');
+    if (visibleCheckboxes.length === 0) {
+        selectAllBtn.checked = false;
+        return;
+    }
+    
+    let allChecked = true;
+    visibleCheckboxes.forEach(cb => {
+        if (!cb.checked) allChecked = false;
+    });
+    selectAllBtn.checked = allChecked;
+}
+
 // Excel Export Function
 btnExportExcel.addEventListener('click', exportToExcel);
 
@@ -674,22 +748,12 @@ function exportToExcel() {
         return;
     }
     
-    // We export whatever is currently displayed, but we should export ALL matching records, not just 'limit'
-    // Let's filter again based on current inputs to get the full list
-    const s_series = filterSeries.value;
-    const s_category = filterCategory.value;
-    const s_search = searchInput.value.toLowerCase().trim();
-
-    let exportData = masterData.filter(item => {
-        const matchesSearch = s_search === "" || item.searchStr.includes(s_search);
-        const matchesCategory = s_category === "" || item.category === s_category;
-        return matchesSearch && matchesCategory && (s_series === "" || item.series === s_series);
-    });
-    
-    if (exportData.length === 0) {
-        alert("Không có dữ liệu nào để xuất!");
+    if (selectedExportItems.size === 0) {
+        alert("Bạn chưa chọn thiết bị nào! Hãy tích (✔) vào thiết bị trong bảng để chọn.");
         return;
     }
+
+    let exportData = masterData.filter(item => selectedExportItems.has(item.uid));
     
     // Convert to Excel friendly format
     const excelRows = exportData.map(item => {
