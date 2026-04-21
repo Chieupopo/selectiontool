@@ -41,6 +41,20 @@ const products = [
             "Bộ Nhớ Chương Trình": "64k Steps",
             "Tích hợp": "Ethernet, RS485, CANopen"
         }
+    },
+    {
+        id: 4,
+        title: "Tạo Báo Giá / Xuất Excel",
+        category: "export",
+        categoryLabel: "Export",
+        desc: "Công cụ tìm kiếm và lọc tổng hợp toàn bộ sản phẩm INOVANCE. Cho phép xuất cấu hình ra file Excel chuyên nghiệp.",
+        img: "https://www.freeiconspng.com/uploads/excel-icon-10.png",
+        openSelectionTool: true,
+        specs: {
+            "Tính năng": "Tìm kiếm Master",
+            "Định dạng": "Excel (.xlsx)",
+            "Dữ liệu": "Servo, Biến Tần, PLC"
+        }
     }
 ];
 
@@ -99,7 +113,9 @@ const filterBrake = document.getElementById('filter-brake');
 const filterComm = document.getElementById('filter-comm');
 const filterPhase = document.getElementById('filter-phase');
 const filterModel = document.getElementById('filter-model');
+const filterCategory = document.getElementById('filter-category');
 const btnReset = document.getElementById('btn-reset');
+const btnExportExcel = document.getElementById('btn-export-excel');
 const btnBack = document.getElementById('btn-back');
 const resultsTbody = document.getElementById('results-tbody');
 const noResults = document.getElementById('no-results');
@@ -112,8 +128,51 @@ const brakeWrapper = document.getElementById('filter-brake-wrapper');
 const commWrapper = document.getElementById('filter-comm-wrapper');
 const phaseWrapper = document.getElementById('filter-phase-wrapper');
 const modelWrapper = document.getElementById('filter-model-wrapper');
+const categoryWrapper = document.getElementById('filter-category-wrapper');
+const seriesWrapper = document.getElementById('filter-series-wrapper');
 
 let currentToolType = '';
+let masterData = [];
+
+function buildMasterData() {
+    masterData = [];
+    selectionData.forEach(item => {
+        masterData.push({
+            category: 'servo',
+            categoryLabel: 'Servo',
+            series: item.series,
+            mainCode: item.motorCode || '-',
+            aux1: item.driveCode || '-',
+            aux2: item.cableCode || '-',
+            aux3: item.encoderCable || '-',
+            searchStr: (item.motorCode + " " + item.driveCode + " " + item.series).toLowerCase()
+        });
+    });
+    inverterData.forEach(item => {
+        masterData.push({
+            category: 'inverter',
+            categoryLabel: 'Biến Tần',
+            series: item.series,
+            mainCode: item.modelCode || '-',
+            aux1: item.description || '-',
+            aux2: item.acInputReactor || '-',
+            aux3: item.brakingResistor || '-',
+            searchStr: (item.modelCode + " " + item.description + " " + item.series).toLowerCase()
+        });
+    });
+    plcData.forEach(item => {
+        masterData.push({
+            category: 'plc',
+            categoryLabel: 'PLC',
+            series: item.series,
+            mainCode: item.modelNumber || '-',
+            aux1: item.description || '-',
+            aux2: '-',
+            aux3: '-',
+            searchStr: (item.modelNumber + " " + item.description + " " + item.series).toLowerCase()
+        });
+    });
+}
 
 function setupSelectionTool(type) {
     currentToolType = type;
@@ -125,6 +184,10 @@ function setupSelectionTool(type) {
     filterComm.innerHTML = '<option value="">-- Tất cả --</option>';
     filterPhase.innerHTML = '<option value="">-- Tất cả --</option>';
     filterModel.innerHTML = '<option value="">-- Tất cả --</option>';
+    filterCategory.innerHTML = '<option value="">-- Tất cả --</option>';
+    
+    // Hide buttons by default, except when in export tool
+    btnExportExcel.style.display = 'none';
 
     let seriesSet = new Set();
     let powerSet = new Set();
@@ -135,6 +198,7 @@ function setupSelectionTool(type) {
         commWrapper.style.display = 'flex';
         phaseWrapper.style.display = 'none';
         modelWrapper.style.display = 'none';
+        categoryWrapper.style.display = 'none';
         
         resultsThead.innerHTML = `
             <tr>
@@ -207,6 +271,7 @@ function setupSelectionTool(type) {
         commWrapper.style.display = 'none';
         phaseWrapper.style.display = 'none';
         modelWrapper.style.display = 'flex';
+        categoryWrapper.style.display = 'none';
         
         resultsThead.innerHTML = `
             <tr>
@@ -216,6 +281,29 @@ function setupSelectionTool(type) {
         `;
         
         plcData.forEach(item => {
+            if (item.series) seriesSet.add(item.series);
+        });
+    } else if (type === 'export') {
+        powerWrapper.style.display = 'none';
+        brakeWrapper.style.display = 'none';
+        commWrapper.style.display = 'none';
+        phaseWrapper.style.display = 'none';
+        modelWrapper.style.display = 'none';
+        categoryWrapper.style.display = 'flex';
+        btnExportExcel.style.display = 'block';
+        
+        resultsThead.innerHTML = `
+            <tr>
+                <th>Ngành hàng (Category)</th>
+                <th>Mã Sản Phẩm (Main Code)</th>
+                <th>Thông số bổ trợ 1</th>
+                <th>Thông số bổ trợ 2</th>
+                <th>Tùy chọn bổ trợ</th>
+            </tr>
+        `;
+        
+        // Populate series purely from filterCategory if any, or all
+        masterData.forEach(item => {
             if (item.series) seriesSet.add(item.series);
         });
     }
@@ -241,14 +329,18 @@ function updateDynamicFilters() {
     const currentPhaseVal = filterPhase.value;
     const currentModelVal = filterModel.value;
     
-    let dataset = currentToolType === 'servo' ? selectionData : (currentToolType === 'inverter' ? inverterData : plcData);
+    let dataset = currentToolType === 'servo' ? selectionData : (currentToolType === 'inverter' ? inverterData : (currentToolType === 'plc' ? plcData : masterData));
     let powerSet = new Set();
     let phaseSet = new Set();
     let modelSet = new Set();
     
     dataset.forEach(item => {
-        if (s_series === "" || item.series === s_series) {
-            if (currentToolType !== 'plc' && item.power && item.power !== '-') powerSet.add(item.power);
+        // If export tool and category is selected, we filter out dataset dynamically
+        const catValue = filterCategory.value;
+        const matchesCategory = currentToolType !== 'export' || catValue === "" || item.category === catValue;
+        
+        if (matchesCategory && (s_series === "" || item.series === s_series)) {
+            if (currentToolType !== 'plc' && currentToolType !== 'export' && item.power && item.power !== '-') powerSet.add(item.power);
             if (currentToolType === 'inverter' && item.phase) phaseSet.add(item.phase);
             if (currentToolType === 'plc' && item.modelNumber) modelSet.add(item.modelNumber);
         }
@@ -331,7 +423,7 @@ function updateDynamicFilters() {
     }
 }
 
-const filtersArr = [filterPower, filterBrake, filterComm, filterPhase, filterModel];
+const filtersArr = [filterPower, filterBrake, filterComm, filterPhase, filterModel, filterCategory];
 filtersArr.forEach(f => {
     f.addEventListener('change', filterSelectionData);
 });
@@ -363,6 +455,7 @@ function filterSelectionData() {
     const s_brake = filterBrake.value;
     const s_comm = filterComm.value;
     const s_phase = filterPhase.value;
+    const s_category = filterCategory.value;
     const s_search = searchInput.value.toLowerCase().trim();
 
     let filtered = [];
@@ -400,6 +493,12 @@ function filterSelectionData() {
             return matchesSearch &&
                    (s_series === "" || item.series === s_series) &&
                    (s_model === "" || item.modelNumber === s_model);
+        });
+    } else if (currentToolType === 'export') {
+        filtered = masterData.filter(item => {
+            const matchesSearch = s_search === "" || item.searchStr.includes(s_search);
+            const matchesCategory = s_category === "" || item.category === s_category;
+            return matchesSearch && matchesCategory && (s_series === "" || item.series === s_series);
         });
     }
 
@@ -477,6 +576,14 @@ function renderTable(data, showAll = false) {
                     <td class="code-highlight" style="color: #059669;">${item.modelNumber || '-'}</td>
                     <td style="color: #475569; font-size: 0.95rem; line-height: 1.5;">${item.description || '-'}</td>
                 `;
+            } else if (currentToolType === 'export') {
+                tr.innerHTML = `
+                    <td><span class="badge ${item.category}" style="display:inline-block; font-size: 0.8rem;">${item.categoryLabel}</span></td>
+                    <td class="code-highlight" style="color: #059669;">${item.mainCode || '-'}</td>
+                    <td style="color: #475569; font-size: 0.9rem; line-height: 1.5;">${item.aux1 || '-'}</td>
+                    <td style="color: #475569; font-size: 0.9rem;">${item.aux2 || '-'}</td>
+                    <td style="color: #475569; font-size: 0.9rem;">${item.aux3 || '-'}</td>
+                `;
             }
             
             resultsTbody.appendChild(tr);
@@ -484,7 +591,7 @@ function renderTable(data, showAll = false) {
         
         if (!showAll && data.length > limit) {
              const tr = document.createElement('tr');
-             const colCount = currentToolType === 'servo' || currentToolType === 'inverter' ? 4 : 2;
+             const colCount = currentToolType === 'servo' || currentToolType === 'inverter' ? 4 : (currentToolType === 'export' ? 5 : 2);
              tr.innerHTML = `<td colspan="${colCount}" style="text-align:center; padding:20px; background:rgba(255,255,255,0.5);">
                  <p style="margin-bottom: 12px; color:#64748b; font-size:0.95rem; font-style:italic;">
                     Còn hơn <b>${data.length - limit}</b> kết quả khác.
@@ -558,8 +665,69 @@ function createStars() {
     }
 }
 
+// Excel Export Function
+btnExportExcel.addEventListener('click', exportToExcel);
+
+function exportToExcel() {
+    if (!window.XLSX) {
+        alert("Thư viện Excel đang tải, vui lòng thử lại sau 1-2 giây!");
+        return;
+    }
+    
+    // We export whatever is currently displayed, but we should export ALL matching records, not just 'limit'
+    // Let's filter again based on current inputs to get the full list
+    const s_series = filterSeries.value;
+    const s_category = filterCategory.value;
+    const s_search = searchInput.value.toLowerCase().trim();
+
+    let exportData = masterData.filter(item => {
+        const matchesSearch = s_search === "" || item.searchStr.includes(s_search);
+        const matchesCategory = s_category === "" || item.category === s_category;
+        return matchesSearch && matchesCategory && (s_series === "" || item.series === s_series);
+    });
+    
+    if (exportData.length === 0) {
+        alert("Không có dữ liệu nào để xuất!");
+        return;
+    }
+    
+    // Convert to Excel friendly format
+    const excelRows = exportData.map(item => {
+        // Remove <br> from descriptions and replace with space or newline
+        const cleanAux1 = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
+        return {
+            "Ngành Hàng": item.categoryLabel,
+            "Dòng Thiết Bị (Series)": item.series,
+            "Mã Thiết Bị (Main Code)": item.mainCode,
+            "Thông Số Bổ Trợ 1": cleanAux1,
+            "Thông Số Bổ Trợ 2": item.aux2,
+            "Thông Số Bổ Trợ 3": item.aux3
+        };
+    });
+    
+    const worksheet = XLSX.utils.json_to_sheet(excelRows);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "DanhSachThietBi");
+    
+    // Auto fit columns roughly
+    const wscols = [
+        {wch: 15}, // Ngành Hàng
+        {wch: 20}, // Series
+        {wch: 35}, // Main Code
+        {wch: 60}, // Aux 1
+        {wch: 25}, // Aux 2
+        {wch: 25}  // Aux 3
+    ];
+    worksheet['!cols'] = wscols;
+
+    const today = new Date();
+    const dateStr = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
+    XLSX.writeFile(workbook, `INOVANCE_Danh_Sach_Thiet_Bi_${dateStr}.xlsx`);
+}
+
 // Initialize App
 function init() {
+    buildMasterData();
     renderProducts();
     setupModalEvents();
     createStars();

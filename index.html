@@ -124,7 +124,16 @@
                         </div>
                     </div>
                     <div class="filter-group">
-                        <div class="filter-item">
+                        <div class="filter-item" id="filter-category-wrapper" style="display: none;">
+                            <label>Loại (Category)</label>
+                            <select id="filter-category">
+                                <option value="">-- Tất cả --</option>
+                                <option value="servo">Động cơ Servo</option>
+                                <option value="inverter">Biến Tần</option>
+                                <option value="plc">PLC</option>
+                            </select>
+                        </div>
+                        <div class="filter-item" id="filter-series-wrapper">
                             <label>Dòng thiết bị (Series)</label>
                             <select id="filter-series">
                                 <option value="">-- Tất cả --</option>
@@ -161,7 +170,10 @@
                             </select>
                         </div>
                     </div>
-                    <button id="btn-reset" class="btn-secondary">Xóa Bộ Lọc</button>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button id="btn-export-excel" class="btn-primary" style="display: none; background: #10b981;">⬇️ Xuất Excel (.xlsx)</button>
+                        <button id="btn-reset" class="btn-secondary">Xóa Bộ Lọc</button>
+                    </div>
                 </div>
 
                 <div class="results-container glass-panel-ui">
@@ -213,6 +225,7 @@
     <div class="cute-corner left-corner" title="Automate Everything">🤖</div>
     <div class="cute-corner right-corner" title="Rocket Speed Selector">🚀</div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="data.js"></script>
     <script src="data_inverter.js"></script>
     <script src="data_plc.js"></script>
