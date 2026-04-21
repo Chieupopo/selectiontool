@@ -786,7 +786,27 @@ function exportToExcel() {
 
     const today = new Date();
     const dateStr = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
-    XLSX.writeFile(workbook, `INOVANCE_Danh_Sach_Thiet_Bi_${dateStr}.xlsx`);
+    const fileName = `INOVANCE_Danh_Sach_Thiet_Bi_${dateStr}.xlsx`;
+    
+    try {
+        // Explicit anchor generation to fix Microsoft Edge blob renaming issue
+        const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        
+        setTimeout(() => {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }, 100);
+    } catch (e) {
+        // Fallback just in case
+        XLSX.writeFile(workbook, fileName);
+    }
 }
 
 // Initialize App
