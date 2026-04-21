@@ -406,7 +406,7 @@ function filterSelectionData() {
     renderTable(filtered);
 }
 
-function renderTable(data) {
+function renderTable(data, showAll = false) {
     resultsTbody.innerHTML = '';
     
     if (data.length === 0) {
@@ -417,7 +417,7 @@ function renderTable(data) {
         noResults.style.display = 'none';
         
         const limit = 15;
-        const displayData = data.slice(0, limit);
+        const displayData = showAll ? data : data.slice(0, limit);
         
         displayData.forEach(item => {
             const tr = document.createElement('tr');
@@ -482,13 +482,22 @@ function renderTable(data) {
             resultsTbody.appendChild(tr);
         });
         
-        if (data.length > limit) {
+        if (!showAll && data.length > limit) {
              const tr = document.createElement('tr');
              const colCount = currentToolType === 'servo' || currentToolType === 'inverter' ? 4 : 2;
-             tr.innerHTML = `<td colspan="${colCount}" style="text-align:center; padding:15px; color:#64748b; font-size:0.95rem; font-style:italic; background:var(--bg-card);">
-                 Còn hơn <b>${data.length - limit}</b> kết quả khác. Vui lòng chọn thêm Bộ Lọc ☝️ để tìm chính xác mã bạn cần.
+             tr.innerHTML = `<td colspan="${colCount}" style="text-align:center; padding:20px; background:rgba(255,255,255,0.5);">
+                 <p style="margin-bottom: 12px; color:#64748b; font-size:0.95rem; font-style:italic;">
+                    Còn hơn <b>${data.length - limit}</b> kết quả khác.
+                 </p>
+                 <button id="btn-show-all" class="btn-primary" style="padding: 10px 25px; border-radius: 10px; font-size: 0.95rem; cursor: pointer;">
+                    Xem chi tiết tất cả kết quả
+                 </button>
              </td>`;
              resultsTbody.appendChild(tr);
+             
+             document.getElementById('btn-show-all').addEventListener('click', () => {
+                 renderTable(data, true);
+             });
         }
     }
 }
