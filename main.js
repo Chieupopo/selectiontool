@@ -135,19 +135,57 @@ let currentToolType = '';
 let masterData = [];
 let selectedExportItems = new Set(); // Stores uids of selected items for export
 
+function getServoCables(item) {
+    let pCable = item.cableCode && item.cableCode !== "-" ? item.cableCode : "-";
+    let eCable = item.encoderCable && item.encoderCable !== "-" ? item.encoderCable : "-";
+    const mc = item.motorCode || "";
+    const powerStr = item.power || "";
+    let powerW = 0;
+    
+    if (powerStr.toLowerCase().includes('k')) {
+        powerW = parseFloat(powerStr) * 1000;
+    } else if (powerStr.toLowerCase().includes('w')) {
+        powerW = parseFloat(powerStr);
+    }
+
+    if (mc.startsWith("MS1H2")) {
+        if (item.brake === "Without") eCable = "S6-L-P121-5.0-INT";
+        if (powerW <= 3000) {
+            pCable = item.brake === "Without" ? "S6-L-M111-5.0-INT" : "S6-L-B111-5.0-INT";
+        } else if (powerW === 4000 || powerW === 5000) {
+            pCable = item.brake === "Without" ? "S6-L-M011-5.0-INT" : "S6-L-B011-5.0-INT";
+        }
+    } else if (mc.startsWith("MS1H3")) {
+        if (item.brake === "Without") eCable = "S6-L-P121-5.0-INT";
+        if (powerW <= 1800) {
+            pCable = item.brake === "Without" ? "S6-L-M111-5.0-INT" : "S6-L-B111-5.0-INT";
+        } else if (powerW === 2900) {
+            pCable = item.brake === "Without" ? "S6-L-M112-5.0-INT" : "S6-L-B112-5.0-INT";
+        } else if (powerW === 4400 || powerW === 5500 || powerW === 7500) {
+            pCable = item.brake === "Without" ? "S6-L-M022-5.0-INT" : "S6-L-B022-5.0-INT";
+        }
+    } else if (mc.startsWith("MS1H1") || mc.startsWith("MS1H4")) {
+        eCable = "S6-L-P125-5.0-INT";
+        if (item.brake === "Without") pCable = "S6-L-M108-5.0-INT";
+        else if (item.brake === "With") pCable = "S6-L-B108-5.0-INT";
+    }
+    
+    return { pCable, eCable };
+}
+
 function buildMasterData() {
     masterData = [];
     let uidCounter = 1;
-    masterData = [];
     selectionData.forEach(item => {
+        const cables = getServoCables(item);
         masterData.push({
             category: 'servo',
             categoryLabel: 'Servo',
             series: item.series,
             mainCode: item.motorCode || '-',
             aux1: item.driveCode || '-',
-            aux2: item.cableCode || '-',
-            aux3: item.encoderCable || '-',
+            aux2: cables.pCable,
+            aux3: cables.eCable,
             searchStr: (item.motorCode + " " + item.driveCode + " " + item.series).toLowerCase(),
             uid: 'servo_' + uidCounter++
         });
@@ -548,47 +586,14 @@ function renderTable(data, showAll = false) {
             const tr = document.createElement('tr');
             
             if (currentToolType === 'servo') {
-                let pCable = item.cableCode && item.cableCode !== "-" ? item.cableCode : "-";
-                let eCable = item.encoderCable && item.encoderCable !== "-" ? item.encoderCable : "-";
-
+                const cables = getServoCables(item);
                 const mc = item.motorCode || "";
-                
-                // Phân tích công suất MS1H2/MS1H3
-                const powerStr = item.power || "";
-                let powerW = 0;
-                if (powerStr.toLowerCase().includes('k')) {
-                    powerW = parseFloat(powerStr) * 1000;
-                } else if (powerStr.toLowerCase().includes('w')) {
-                    powerW = parseFloat(powerStr);
-                }
-
-                if (mc.startsWith("MS1H2")) {
-                    if (item.brake === "Without") eCable = "S6-L-P121-5.0-INT";
-                    if (powerW <= 3000) {
-                        pCable = item.brake === "Without" ? "S6-L-M111-5.0-INT" : "S6-L-B111-5.0-INT";
-                    } else if (powerW === 4000 || powerW === 5000) {
-                        pCable = item.brake === "Without" ? "S6-L-M011-5.0-INT" : "S6-L-B011-5.0-INT";
-                    }
-                } else if (mc.startsWith("MS1H3")) {
-                    if (item.brake === "Without") eCable = "S6-L-P121-5.0-INT";
-                    if (powerW <= 1800) {
-                        pCable = item.brake === "Without" ? "S6-L-M111-5.0-INT" : "S6-L-B111-5.0-INT";
-                    } else if (powerW === 2900) {
-                        pCable = item.brake === "Without" ? "S6-L-M112-5.0-INT" : "S6-L-B112-5.0-INT";
-                    } else if (powerW === 4400 || powerW === 5500 || powerW === 7500) {
-                        pCable = item.brake === "Without" ? "S6-L-M022-5.0-INT" : "S6-L-B022-5.0-INT";
-                    }
-                } else if (mc.startsWith("MS1H1") || mc.startsWith("MS1H4")) {
-                    eCable = "S6-L-P125-5.0-INT";
-                    if (item.brake === "Without") pCable = "S6-L-M108-5.0-INT";
-                    else if (item.brake === "With") pCable = "S6-L-B108-5.0-INT";
-                }
 
                 tr.innerHTML = `
                     <td class="code-highlight" style="color: #0f172a;">${mc || '-'}</td>
                     <td class="code-highlight" style="color: #e11d48;">${item.driveCode || '-'}</td>
-                    <td class="code-highlight" style="color: #b45309;">${pCable}</td>
-                    <td class="code-highlight" style="color: #2563eb;">${eCable}</td>
+                    <td class="code-highlight" style="color: #b45309;">${cables.pCable}</td>
+                    <td class="code-highlight" style="color: #2563eb;">${cables.eCable}</td>
                 `;
             } else if (currentToolType === 'inverter') {
                 tr.innerHTML = `
