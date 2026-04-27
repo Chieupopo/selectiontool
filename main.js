@@ -190,7 +190,7 @@ function setupSelectionTool(type) {
     filterComm.innerHTML = '<option value="">-- Tất cả --</option>';
     filterPhase.innerHTML = '<option value="">-- Tất cả --</option>';
     filterModel.innerHTML = '<option value="">-- Tất cả --</option>';
-    filterCategory.innerHTML = '<option value="">-- Tất cả --</option>';
+    filterCategory.value = '';
     
     // Hide buttons by default, except when in export tool
     btnExportExcel.style.display = 'none';
