@@ -489,7 +489,12 @@ function updateDynamicFilters() {
 
 const filtersArr = [filterPower, filterBrake, filterComm, filterPhase, filterModel, filterCategory];
 filtersArr.forEach(f => {
-    f.addEventListener('change', filterSelectionData);
+    f.addEventListener('change', () => {
+        if (f === filterCategory) {
+            updateDynamicFilters();
+        }
+        filterSelectionData();
+    });
 });
 
 const searchInput = document.getElementById('search-model');
