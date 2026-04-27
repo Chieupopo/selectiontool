@@ -133,7 +133,7 @@ const seriesWrapper = document.getElementById('filter-series-wrapper');
 
 let currentToolType = '';
 let masterData = [];
-let selectedExportItems = new Set(); // Stores uids of selected items for export
+let selectedExportItems = new Map(); // Stores uids of selected items for export
 
 function getServoCables(item) {
     let pCable = item.cableCode && item.cableCode !== "-" ? item.cableCode : "-";
@@ -338,7 +338,7 @@ function setupSelectionTool(type) {
         
         resultsThead.innerHTML = `
             <tr>
-                <th style="width: 40px; text-align: center;"><input type="checkbox" id="selectAllExport" style="cursor: pointer;"></th>
+                <th style="width: 120px; text-align: center;">Số lượng</th>
                 <th>Ngành hàng (Category)</th>
                 <th>Mã Sản Phẩm (Main Code)</th>
                 <th>Thông số bổ trợ 1</th>
@@ -608,9 +608,15 @@ function renderTable(data, showAll = false) {
                     <td style="color: #475569; font-size: 0.95rem; line-height: 1.5;">${item.description || '-'}</td>
                 `;
             } else if (currentToolType === 'export') {
-                const isSelected = selectedExportItems.has(item.uid);
+                const qty = selectedExportItems.get(item.uid) || 0;
                 tr.innerHTML = `
-                    <td style="text-align: center;"><input type="checkbox" class="export-checkbox" data-uid="${item.uid}" ${isSelected ? 'checked' : ''} style="cursor: pointer; width: 16px; height: 16px;"></td>
+                    <td style="text-align: center;">
+                        <div class="qty-control">
+                            <button class="qty-btn minus" data-uid="${item.uid}" ${qty === 0 ? 'disabled' : ''}>-</button>
+                            <input type="number" class="qty-input" data-uid="${item.uid}" value="${qty}" min="0">
+                            <button class="qty-btn plus" data-uid="${item.uid}">+</button>
+                        </div>
+                    </td>
                     <td><span class="badge ${item.category}" style="display:inline-block; font-size: 0.8rem;">${item.categoryLabel}</span></td>
                     <td class="code-highlight" style="color: #059669;">${item.mainCode || '-'}</td>
                     <td style="color: #475569; font-size: 0.9rem; line-height: 1.5;">${item.aux1 || '-'}</td>
@@ -639,10 +645,6 @@ function renderTable(data, showAll = false) {
                  renderTable(data, true);
              });
         }
-    }
-    
-    if (currentToolType === 'export') {
-        updateSelectAllState();
     }
 }
 
@@ -702,47 +704,45 @@ function createStars() {
     }
 }
 
-// Delegate Checkbox Events
-resultsTable.addEventListener('change', (e) => {
-    if (e.target.classList.contains('export-checkbox')) {
+// Delegate Quantity Events
+resultsTable.addEventListener('click', (e) => {
+    if (e.target.classList.contains('qty-btn')) {
+        const isPlus = e.target.classList.contains('plus');
         const uid = e.target.getAttribute('data-uid');
-        if (e.target.checked) {
-            selectedExportItems.add(uid);
-        } else {
-            selectedExportItems.delete(uid);
+        const inputGrp = e.target.closest('.qty-control');
+        const input = inputGrp.querySelector('.qty-input');
+        
+        // Cập nhật số lượng
+        let currentVal = parseInt(input.value) || 0;
+        if (isPlus) {
+            currentVal += 1;
+        } else if (currentVal > 0) {
+            currentVal -= 1;
         }
-        updateSelectAllState();
-    } else if (e.target.id === 'selectAllExport') {
-        const isChecked = e.target.checked;
-        const visibleCheckboxes = document.querySelectorAll('.export-checkbox');
-        visibleCheckboxes.forEach(cb => {
-            cb.checked = isChecked;
-            const uid = cb.getAttribute('data-uid');
-            if (isChecked) {
-                selectedExportItems.add(uid);
-            } else {
-                selectedExportItems.delete(uid);
-            }
-        });
+        
+        input.value = currentVal;
+        selectedExportItems.set(uid, currentVal);
+        
+        // Quản lý trạng thái nút ẩn
+        const minusBtn = inputGrp.querySelector('.minus');
+        minusBtn.disabled = currentVal === 0;
     }
 });
 
-function updateSelectAllState() {
-    const selectAllBtn = document.getElementById('selectAllExport');
-    if (!selectAllBtn) return;
-    
-    const visibleCheckboxes = document.querySelectorAll('.export-checkbox');
-    if (visibleCheckboxes.length === 0) {
-        selectAllBtn.checked = false;
-        return;
+resultsTable.addEventListener('input', (e) => {
+    if (e.target.classList.contains('qty-input')) {
+        let val = parseInt(e.target.value) || 0;
+        if (val < 0) {
+            val = 0;
+            e.target.value = 0;
+        }
+        const uid = e.target.getAttribute('data-uid');
+        selectedExportItems.set(uid, val);
+        
+        const minusBtn = e.target.closest('.qty-control').querySelector('.minus');
+        minusBtn.disabled = val === 0;
     }
-    
-    let allChecked = true;
-    visibleCheckboxes.forEach(cb => {
-        if (!cb.checked) allChecked = false;
-    });
-    selectAllBtn.checked = allChecked;
-}
+});
 
 // Excel Export Function
 btnExportExcel.addEventListener('click', exportToExcel);
@@ -753,53 +753,55 @@ function exportToExcel() {
         return;
     }
     
-    if (selectedExportItems.size === 0) {
-        alert("Bạn chưa chọn thiết bị nào! Hãy tích (✔) vào thiết bị trong bảng để chọn.");
+    const hasSelection = Array.from(selectedExportItems.values()).some(qty => qty > 0);
+    if (!hasSelection) {
+        alert("Bạn chưa chọn số lượng thiết bị nào! Hãy bấm '+' để chọn thiết bị cần xuất báo giá.");
         return;
     }
 
-    let exportData = masterData.filter(item => selectedExportItems.has(item.uid));
+    let exportData = masterData.filter(item => (selectedExportItems.get(item.uid) || 0) > 0);
     
     // Convert to Excel BOM format
     const excelRows = [];
     let stt = 1;
     
     exportData.forEach(item => {
+        const qty = selectedExportItems.get(item.uid) || 0;
         if (item.category === 'servo') {
             if (item.mainCode && item.mainCode !== '-') {
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": "Động cơ servo", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": "Động cơ servo", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": ""});
             }
             if (item.aux1 && item.aux1 !== '-') {
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux1, "TÊN THIẾT BỊ": "Driver", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux1, "TÊN THIẾT BỊ": "Driver", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": ""});
             }
             if (item.aux2 && item.aux2 !== '-') {
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux2, "TÊN THIẾT BỊ": "Dây cáp nguồn", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux2, "TÊN THIẾT BỊ": "Dây cáp nguồn", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": ""});
             }
             if (item.aux3 && item.aux3 !== '-') {
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux3, "TÊN THIẾT BỊ": "Dây cáp encoder", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux3, "TÊN THIẾT BỊ": "Dây cáp encoder", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": ""});
             }
         } else if (item.category === 'inverter') {
             if (item.mainCode && item.mainCode !== '-') {
                 const desc = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": "Biến tần", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": desc});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": "Biến tần", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": desc});
             }
             if (item.aux2 && item.aux2 !== '-') {
                 let textAux2 = typeof item.aux2 === 'string' ? item.aux2.replace(/<br>/g, " \n ") : item.aux2;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": textAux2, "TÊN THIẾT BỊ": "Cuộn kháng AC", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": textAux2, "TÊN THIẾT BỊ": "Cuộn kháng AC", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": ""});
             }
             if (item.aux3 && item.aux3 !== '-') {
                 let textAux3 = typeof item.aux3 === 'string' ? item.aux3.replace(/<br>/g, " \n ") : item.aux3;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": textAux3, "TÊN THIẾT BỊ": "Điện trở xả", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": textAux3, "TÊN THIẾT BỊ": "Điện trở xả", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": ""});
             }
         } else if (item.category === 'plc') {
             if (item.mainCode && item.mainCode !== '-') {
                 const desc = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": item.series || "PLC", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": desc});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": item.series || "PLC", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": desc});
             }
         } else {
             if (item.mainCode && item.mainCode !== '-') {
                 const desc = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": item.categoryLabel, "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": desc});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": item.categoryLabel, "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": desc});
             }
         }
     });

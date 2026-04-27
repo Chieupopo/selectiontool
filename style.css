@@ -504,3 +504,56 @@ header p {
         width: 100%;
     }
 }
+
+/* Quantity Control Spinner */
+.qty-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #ffffff;
+}
+.qty-btn {
+    background: #f1f5f9;
+    border: none;
+    width: 28px;
+    height: 28px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+    color: #475569;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.qty-btn:hover {
+    background: #e2e8f0;
+}
+.qty-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.qty-input {
+    width: 45px;
+    height: 28px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid #cbd5e1;
+    border-right: 1px solid #cbd5e1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    -moz-appearance: textfield;
+}
+.qty-input:focus {
+    outline: none;
+    background: #f8fafc;
+}
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
