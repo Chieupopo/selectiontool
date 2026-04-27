@@ -760,18 +760,48 @@ function exportToExcel() {
 
     let exportData = masterData.filter(item => selectedExportItems.has(item.uid));
     
-    // Convert to Excel friendly format
-    const excelRows = exportData.map(item => {
-        // Remove <br> from descriptions and replace with space or newline
-        const cleanAux1 = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
-        return {
-            "Ngành Hàng": item.categoryLabel,
-            "Dòng Thiết Bị (Series)": item.series,
-            "Mã Thiết Bị (Main Code)": item.mainCode,
-            "Thông Số Bổ Trợ 1": cleanAux1,
-            "Thông Số Bổ Trợ 2": item.aux2,
-            "Thông Số Bổ Trợ 3": item.aux3
-        };
+    // Convert to Excel BOM format
+    const excelRows = [];
+    let stt = 1;
+    
+    exportData.forEach(item => {
+        if (item.category === 'servo') {
+            if (item.mainCode && item.mainCode !== '-') {
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": "Động cơ servo", "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+            }
+            if (item.aux1 && item.aux1 !== '-') {
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux1, "TÊN THIẾT BỊ": "Driver", "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+            }
+            if (item.aux2 && item.aux2 !== '-') {
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux2, "TÊN THIẾT BỊ": "Dây cáp nguồn", "ĐƠN VỊ": "Sợi", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+            }
+            if (item.aux3 && item.aux3 !== '-') {
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux3, "TÊN THIẾT BỊ": "Dây cáp encoder", "ĐƠN VỊ": "Sợi", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+            }
+        } else if (item.category === 'inverter') {
+            if (item.mainCode && item.mainCode !== '-') {
+                const desc = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": "Biến tần", "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": desc});
+            }
+            if (item.aux2 && item.aux2 !== '-') {
+                let textAux2 = typeof item.aux2 === 'string' ? item.aux2.replace(/<br>/g, " \n ") : item.aux2;
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": textAux2, "TÊN THIẾT BỊ": "Cuộn kháng AC", "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+            }
+            if (item.aux3 && item.aux3 !== '-') {
+                let textAux3 = typeof item.aux3 === 'string' ? item.aux3.replace(/<br>/g, " \n ") : item.aux3;
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": textAux3, "TÊN THIẾT BỊ": "Điện trở xả", "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+            }
+        } else if (item.category === 'plc') {
+            if (item.mainCode && item.mainCode !== '-') {
+                const desc = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": item.series || "PLC", "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": desc});
+            }
+        } else {
+            if (item.mainCode && item.mainCode !== '-') {
+                const desc = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": item.categoryLabel, "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": desc});
+            }
+        }
     });
     
     const worksheet = XLSX.utils.json_to_sheet(excelRows);
@@ -780,12 +810,12 @@ function exportToExcel() {
     
     // Auto fit columns roughly
     const wscols = [
-        {wch: 15}, // Ngành Hàng
-        {wch: 20}, // Series
-        {wch: 35}, // Main Code
-        {wch: 60}, // Aux 1
-        {wch: 25}, // Aux 2
-        {wch: 25}  // Aux 3
+        {wch: 5},  // STT
+        {wch: 35}, // MÃ THIẾT BỊ
+        {wch: 25}, // TÊN THIẾT BỊ
+        {wch: 10}, // ĐƠN VỊ
+        {wch: 15}, // SỐ LƯỢNG
+        {wch: 60}  // GHI CHÚ
     ];
     worksheet['!cols'] = wscols;
 
