@@ -767,44 +767,54 @@ function exportToExcel() {
     exportData.forEach(item => {
         if (item.category === 'servo') {
             if (item.mainCode && item.mainCode !== '-') {
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": "Động cơ servo", "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": "Động cơ servo", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
             }
             if (item.aux1 && item.aux1 !== '-') {
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux1, "TÊN THIẾT BỊ": "Driver", "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux1, "TÊN THIẾT BỊ": "Driver", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
             }
             if (item.aux2 && item.aux2 !== '-') {
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux2, "TÊN THIẾT BỊ": "Dây cáp nguồn", "ĐƠN VỊ": "Sợi", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux2, "TÊN THIẾT BỊ": "Dây cáp nguồn", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
             }
             if (item.aux3 && item.aux3 !== '-') {
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux3, "TÊN THIẾT BỊ": "Dây cáp encoder", "ĐƠN VỊ": "Sợi", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux3, "TÊN THIẾT BỊ": "Dây cáp encoder", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
             }
         } else if (item.category === 'inverter') {
             if (item.mainCode && item.mainCode !== '-') {
                 const desc = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": "Biến tần", "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": desc});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": "Biến tần", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": desc});
             }
             if (item.aux2 && item.aux2 !== '-') {
                 let textAux2 = typeof item.aux2 === 'string' ? item.aux2.replace(/<br>/g, " \n ") : item.aux2;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": textAux2, "TÊN THIẾT BỊ": "Cuộn kháng AC", "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": textAux2, "TÊN THIẾT BỊ": "Cuộn kháng AC", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
             }
             if (item.aux3 && item.aux3 !== '-') {
                 let textAux3 = typeof item.aux3 === 'string' ? item.aux3.replace(/<br>/g, " \n ") : item.aux3;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": textAux3, "TÊN THIẾT BỊ": "Điện trở xả", "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": textAux3, "TÊN THIẾT BỊ": "Điện trở xả", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": ""});
             }
         } else if (item.category === 'plc') {
             if (item.mainCode && item.mainCode !== '-') {
                 const desc = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": item.series || "PLC", "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": desc});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": item.series || "PLC", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": desc});
             }
         } else {
             if (item.mainCode && item.mainCode !== '-') {
                 const desc = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": item.categoryLabel, "ĐƠN VỊ": "Cái", "SỐ LƯỢNG": 1, "GHI CHÚ": desc});
+                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": item.categoryLabel, "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": 1, "GHI CHÚ": desc});
             }
         }
     });
     
     const worksheet = XLSX.utils.json_to_sheet(excelRows);
+    
+    // Apply Times New Roman font to all cells
+    for (let cell in worksheet) {
+        if (cell.startsWith('!')) continue;
+        if (!worksheet[cell].s) worksheet[cell].s = {};
+        if (!worksheet[cell].s.font) worksheet[cell].s.font = {};
+        worksheet[cell].s.font.name = "Times New Roman";
+        worksheet[cell].s.font.sz = 12; // 12pt
+    }
+
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "DanhSachThietBi");
     
