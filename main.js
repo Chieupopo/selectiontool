@@ -761,50 +761,74 @@ function exportToExcel() {
 
     let exportData = masterData.filter(item => (selectedExportItems.get(item.uid) || 0) > 0);
     
-    // Convert to Excel BOM format
-    const excelRows = [];
-    let stt = 1;
+    // Gather all items
+    const rawItems = [];
     
     exportData.forEach(item => {
         const qty = selectedExportItems.get(item.uid) || 0;
         if (item.category === 'servo') {
             if (item.mainCode && item.mainCode !== '-') {
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": "Động cơ servo", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": ""});
+                rawItems.push({ code: item.mainCode, name: "Động cơ servo", unit: "PCS", qty: qty, note: "" });
             }
             if (item.aux1 && item.aux1 !== '-') {
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux1, "TÊN THIẾT BỊ": "Driver", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": ""});
+                rawItems.push({ code: item.aux1, name: "Driver", unit: "PCS", qty: qty, note: "" });
             }
             if (item.aux2 && item.aux2 !== '-') {
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux2, "TÊN THIẾT BỊ": "Dây cáp nguồn", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": ""});
+                rawItems.push({ code: item.aux2, name: "Dây cáp nguồn", unit: "PCS", qty: qty, note: "" });
             }
             if (item.aux3 && item.aux3 !== '-') {
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.aux3, "TÊN THIẾT BỊ": "Dây cáp encoder", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": ""});
+                rawItems.push({ code: item.aux3, name: "Dây cáp encoder", unit: "PCS", qty: qty, note: "" });
             }
         } else if (item.category === 'inverter') {
             if (item.mainCode && item.mainCode !== '-') {
                 const desc = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": "Biến tần", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": desc});
+                rawItems.push({ code: item.mainCode, name: "Biến tần", unit: "PCS", qty: qty, note: desc });
             }
             if (item.aux2 && item.aux2 !== '-') {
                 let textAux2 = typeof item.aux2 === 'string' ? item.aux2.replace(/<br>/g, " \n ") : item.aux2;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": textAux2, "TÊN THIẾT BỊ": "Cuộn kháng AC", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": ""});
+                rawItems.push({ code: textAux2, name: "Cuộn kháng AC", unit: "PCS", qty: qty, note: "" });
             }
             if (item.aux3 && item.aux3 !== '-') {
                 let textAux3 = typeof item.aux3 === 'string' ? item.aux3.replace(/<br>/g, " \n ") : item.aux3;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": textAux3, "TÊN THIẾT BỊ": "Điện trở xả", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": ""});
+                rawItems.push({ code: textAux3, name: "Điện trở xả", unit: "PCS", qty: qty, note: "" });
             }
         } else if (item.category === 'plc') {
             if (item.mainCode && item.mainCode !== '-') {
                 const desc = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": item.series || "PLC", "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": desc});
+                rawItems.push({ code: item.mainCode, name: item.series || "PLC", unit: "PCS", qty: qty, note: desc });
             }
         } else {
             if (item.mainCode && item.mainCode !== '-') {
                 const desc = typeof item.aux1 === 'string' ? item.aux1.replace(/<br>/g, " \n ") : item.aux1;
-                excelRows.push({"STT": stt++, "MÃ THIẾT BỊ": item.mainCode, "TÊN THIẾT BỊ": item.categoryLabel, "ĐƠN VỊ": "PCS", "SỐ LƯỢNG": qty, "GHI CHÚ": desc});
+                rawItems.push({ code: item.mainCode, name: item.categoryLabel, unit: "PCS", qty: qty, note: desc });
             }
         }
     });
+
+    // Aggregate identical codes
+    const aggregated = new Map();
+    rawItems.forEach(r => {
+        if (aggregated.has(r.code)) {
+            const existing = aggregated.get(r.code);
+            existing.qty += r.qty;
+            if (r.note && !existing.note.includes(r.note)) {
+                existing.note += (existing.note ? " \n " : "") + r.note;
+            }
+        } else {
+            aggregated.set(r.code, { ...r });
+        }
+    });
+
+    // Convert to Excel BOM format
+    let stt = 1;
+    const excelRows = Array.from(aggregated.values()).map(r => ({
+        "STT": stt++,
+        "MÃ THIẾT BỊ": r.code,
+        "TÊN THIẾT BỊ": r.name,
+        "ĐƠN VỊ": r.unit,
+        "SỐ LƯỢNG": r.qty,
+        "GHI CHÚ": r.note
+    }));
     
     const worksheet = XLSX.utils.json_to_sheet(excelRows);
     
