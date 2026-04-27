@@ -48,7 +48,7 @@ const products = [
         category: "export",
         categoryLabel: "Export",
         desc: "Công cụ tìm kiếm và lọc tổng hợp toàn bộ sản phẩm INOVANCE. Cho phép xuất cấu hình ra file Excel chuyên nghiệp.",
-        img: "https://www.freeiconspng.com/uploads/excel-icon-10.png",
+        img: "P_excel.jfif",
         openSelectionTool: true,
         specs: {
             "Tính năng": "Tìm kiếm Master",
