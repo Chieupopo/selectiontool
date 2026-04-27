@@ -832,13 +832,37 @@ function exportToExcel() {
     
     const worksheet = XLSX.utils.json_to_sheet(excelRows);
     
-    // Apply Times New Roman font to all cells
+    // Apply Styling to all cells
     for (let cell in worksheet) {
         if (cell.startsWith('!')) continue;
         if (!worksheet[cell].s) worksheet[cell].s = {};
         if (!worksheet[cell].s.font) worksheet[cell].s.font = {};
+        
+        // Base Font
         worksheet[cell].s.font.name = "Times New Roman";
         worksheet[cell].s.font.sz = 12; // 12pt
+
+        const col = cell.replace(/[0-9]/g, '');
+        const row = cell.replace(/[^0-9]/g, '');
+
+        // Center alignment for STT (A) and SỐ LƯỢNG (E)
+        if (col === 'A' || col === 'E') {
+            if (!worksheet[cell].s.alignment) worksheet[cell].s.alignment = {};
+            worksheet[cell].s.alignment.horizontal = "center";
+            worksheet[cell].s.alignment.vertical = "center";
+        }
+
+        // Header highlighting and centering (Row 1)
+        if (row === '1') {
+            worksheet[cell].s.font.bold = true;
+            worksheet[cell].s.fill = {
+                patternType: "solid",
+                fgColor: { rgb: "FFFF00" } // Yellow
+            };
+            if (!worksheet[cell].s.alignment) worksheet[cell].s.alignment = {};
+            worksheet[cell].s.alignment.horizontal = "center";
+            worksheet[cell].s.alignment.vertical = "center";
+        }
     }
 
     const workbook = XLSX.utils.book_new();
