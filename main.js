@@ -863,6 +863,15 @@ function exportToExcel() {
             worksheet[cell].s.alignment.horizontal = "center";
             worksheet[cell].s.alignment.vertical = "center";
         }
+
+        // Add thin black borders to all cells
+        if (!worksheet[cell].s.border) worksheet[cell].s.border = {};
+        worksheet[cell].s.border = {
+            top: { style: "thin", color: { auto: 1 } },
+            bottom: { style: "thin", color: { auto: 1 } },
+            left: { style: "thin", color: { auto: 1 } },
+            right: { style: "thin", color: { auto: 1 } }
+        };
     }
 
     const workbook = XLSX.utils.book_new();
