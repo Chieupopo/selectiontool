@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Trang Web của Chiều Đẹp Trai</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            background-color: transparent;
+            margin: 0;
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh; /* Vừa đúng chiều cao của màn hình/iframe */
+        }
+
+        /* Đây là nơi cậu chỉnh độ to nhỏ của cái khung chứa */
+        .box-khung {
+            width: 100%;
+            flex-grow: 1; /* Tự động dãn ra chiếm hết không gian còn lại */
+            margin: 0 auto;
+            background: #fff;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Thiết lập cho trang web bên trong */
+        .box-khung iframe {
+            width: 200%;     /* Phóng rộng gấp đôi */
+            height: 200%;    /* Phóng cao gấp đôi */
+            border: none;
+            transform: scale(0.5);          /* Thu lại 50% → kết quả = 100% nội dung gốc */
+            transform-origin: top left;     /* Điểm neo góc trên trái */
+        }
+
+        /* Thêm style cho phần chọn linear */
+        .linear-container {
+            text-align: center;
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .linear-container select {
+            padding: 8px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .linear-container label {
+            font-size: 18px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2 style="text-align: center;">Cực kỳ mượt</h2>
+
+    <!-- Ô Chọn Linear -->
+    <div class="linear-container">
+        <label for="linear-select">Chọn Linear:</label>
+        <select id="linear-select">
+            <option value="">-- Vui lòng chọn --</option>
+            <option value="loai1">Linear Loại 1</option>
+            <option value="loai2">Linear Loại 2</option>
+            <option value="loai3">Linear Loại 3</option>
+        </select>
+    </div>
+
+    <!-- Cái khung này sẽ chứa trang web của cậu -->
+    <div class="box-khung">
+        <iframe
+            src="https://www.3dfindit.com/en/cad-bim-library/manufacturer/inovance/precision-machinery-products/electric-cylinder-product?path=inovance%2Fprecision_machinery_products%2Felectric_cylinder_product"></iframe>
+    </div>
+
+    <p style="text-align: center;">Cậu có thể thêm nội dung khác ở dưới này nếu muốn.</p>
+
+</body>
+
+</html>

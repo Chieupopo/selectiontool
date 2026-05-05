@@ -55,8 +55,23 @@ const products = [
             "Định dạng": "Excel (.xlsx)",
             "Dữ liệu": "Servo, Biến Tần, PLC"
         }
+    },
+    {
+        id: 5,
+        title: "Chọn Sylinder Electric",
+        category: "cylinder",
+        categoryLabel: "Cylinder",
+        desc: "Tra cứu mô hình 3D Xy lanh điện (Electric Cylinder) trực quan. [Ấn vào đây để xem 3D].",
+        img: "https://stagro.com.vn/wp-content/uploads/2025/12/motor-servo-MS1H1-05B30CB-A330Z-INT-600x600.jpg", // Using servo img temporarily, user can change it
+        openIframe: true,
+        specs: {
+            "Hiển thị": "Mô hình 3D (3dfindit)",
+            "Ứng dụng": "Electric Cylinder",
+            "Công cụ": "Web_Test.html"
+        }
     }
 ];
+
 
 // Elements
 const productGrid = document.getElementById('product-grid');
@@ -94,6 +109,12 @@ function renderProducts() {
                 gridContainer.style.display = 'none';
                 selectionToolContainer.style.display = 'flex';
                 setupSelectionTool(product.category);
+            } else if (product.openIframe) {
+                // Mở iframe tool cho Electric Cylinder
+                gridContainer.style.display = 'none';
+                if(document.getElementById('iframe-tool')) {
+                    document.getElementById('iframe-tool').style.display = 'flex';
+                }
             } else {
                 openModal(product);
             }
@@ -517,6 +538,14 @@ btnBack.addEventListener('click', () => {
     selectionToolContainer.style.display = 'none';
     gridContainer.style.display = 'grid';
 });
+
+const btnBackIframe = document.getElementById('btn-back-iframe');
+if (btnBackIframe) {
+    btnBackIframe.addEventListener('click', () => {
+        document.getElementById('iframe-tool').style.display = 'none';
+        gridContainer.style.display = 'grid';
+    });
+}
 
 function filterSelectionData() {
     const s_series = filterSeries.value;
