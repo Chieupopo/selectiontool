@@ -1180,10 +1180,16 @@ function renderNotes() {
         });
 
         deleteBtn.addEventListener('click', () => {
-            if (confirm(`Bạn có chắc chắn muốn xóa ghi chú "${note.title || 'không tên'}"?`)) {
-                projectNotes = projectNotes.filter(n => n.id !== note.id);
-                saveNotes();
-                renderNotes();
+            const password = prompt("Vui lòng nhập mật khẩu để xóa ghi chú:");
+            if (password === null) return; // Người dùng bấm Hủy
+            if (password === '102975') {
+                if (confirm(`Bạn có chắc chắn muốn xóa ghi chú "${note.title || 'không tên'}"?`)) {
+                    projectNotes = projectNotes.filter(n => n.id !== note.id);
+                    saveNotes();
+                    renderNotes();
+                }
+            } else {
+                alert("Mật khẩu không chính xác!");
             }
         });
 
