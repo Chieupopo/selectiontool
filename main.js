@@ -69,6 +69,20 @@ const products = [
             "Ứng dụng": "Electric Cylinder",
             "Công cụ": "Web_Test.html"
         }
+    },
+    {
+        id: 6,
+        title: "Sổ Tay Ghi Chép Dự Án",
+        category: "notes",
+        categoryLabel: "Sổ Tay",
+        desc: "Tạo và lưu trữ các ghi chú kỹ thuật, mã thiết bị và thông tin cấu hình dự án của bạn tại đây.",
+        img: "assets/project_notes.png",
+        openNotesTool: true,
+        specs: {
+            "Tính năng": "Tạo nhiều thẻ ghi chú",
+            "Lưu trữ": "Tự động (LocalStorage)",
+            "Bảo mật": "Lưu trên trình duyệt cá nhân"
+        }
     }
 ];
 
@@ -114,6 +128,17 @@ function renderProducts() {
                 gridContainer.style.display = 'none';
                 if(document.getElementById('iframe-tool')) {
                     document.getElementById('iframe-tool').style.display = 'flex';
+                }
+            } else if (product.openNotesTool) {
+                // Check if already authenticated in this session
+                if (sessionStorage.getItem('notes_authenticated') === 'true') {
+                    gridContainer.style.display = 'none';
+                    if(document.getElementById('notes-tool')) {
+                        document.getElementById('notes-tool').style.display = 'flex';
+                    }
+                    renderNotes();
+                } else {
+                    openNotesAuthModal();
                 }
             } else {
                 openModal(product);
@@ -947,12 +972,219 @@ function exportToExcel() {
     }
 }
 
+// -----------------------------------------------------
+// PROJECT NOTES TOOL LOGIC
+// -----------------------------------------------------
+let projectNotes = [];
+
+function loadNotes() {
+    try {
+        const saved = localStorage.getItem('inovance_project_notes');
+        if (saved) {
+            projectNotes = JSON.parse(saved);
+        } else {
+            projectNotes = [
+                {
+                    id: 'note_default_1',
+                    title: 'Ghi chú Dự án 1',
+                    content: 'Nhập thông tin cấu hình trạm máy hoặc mã thiết bị cần mua vào đây...',
+                    updatedAt: new Date().toLocaleString('vi-VN')
+                }
+            ];
+            saveNotes();
+        }
+    } catch (e) {
+        console.error("Error loading notes", e);
+        projectNotes = [];
+    }
+}
+
+function saveNotes() {
+    localStorage.setItem('inovance_project_notes', JSON.stringify(projectNotes));
+}
+
+function renderNotes() {
+    const container = document.getElementById('notes-container');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (projectNotes.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-secondary); font-style: italic;">
+                Chưa có ghi chú nào được tạo. Hãy bấm "Thêm Ghi Chú Mới" để bắt đầu!
+            </div>
+        `;
+        return;
+    }
+
+    projectNotes.forEach(note => {
+        const card = document.createElement('div');
+        card.className = 'note-item-card';
+        card.innerHTML = `
+            <div class="note-card-header">
+                <input type="text" class="note-card-title-input" value="${note.title}" placeholder="Nhập tiêu đề...">
+                <button class="note-card-delete-btn" title="Xóa ghi chú">🗑️</button>
+            </div>
+            <textarea class="note-card-textarea" placeholder="Nhập nội dung ghi chú...">${note.content}</textarea>
+            <div class="note-card-footer">
+                <span>Cập nhật: ${note.updatedAt}</span>
+                <button class="note-card-copy-btn">
+                    <span>📋 Copy</span>
+                </button>
+            </div>
+        `;
+
+        const titleInput = card.querySelector('.note-card-title-input');
+        const textarea = card.querySelector('.note-card-textarea');
+        const deleteBtn = card.querySelector('.note-card-delete-btn');
+        const copyBtn = card.querySelector('.note-card-copy-btn');
+
+        titleInput.addEventListener('input', () => {
+            note.title = titleInput.value;
+            note.updatedAt = new Date().toLocaleString('vi-VN');
+            card.querySelector('.note-card-footer span').textContent = `Cập nhật: ${note.updatedAt}`;
+            saveNotes();
+        });
+
+        textarea.addEventListener('input', () => {
+            note.content = textarea.value;
+            note.updatedAt = new Date().toLocaleString('vi-VN');
+            card.querySelector('.note-card-footer span').textContent = `Cập nhật: ${note.updatedAt}`;
+            saveNotes();
+        });
+
+        deleteBtn.addEventListener('click', () => {
+            if (confirm(`Bạn có chắc chắn muốn xóa ghi chú "${note.title || 'không tên'}"?`)) {
+                projectNotes = projectNotes.filter(n => n.id !== note.id);
+                saveNotes();
+                renderNotes();
+            }
+        });
+
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(note.content).then(() => {
+                const btnSpan = copyBtn.querySelector('span');
+                btnSpan.textContent = '✅ Đã Copy!';
+                copyBtn.style.background = '#10b981';
+                copyBtn.style.color = '#ffffff';
+                copyBtn.style.borderColor = '#10b981';
+                
+                setTimeout(() => {
+                    btnSpan.textContent = '📋 Copy';
+                    copyBtn.style.background = '';
+                    copyBtn.style.color = '';
+                    copyBtn.style.borderColor = '';
+                }, 1500);
+            });
+        });
+
+        container.appendChild(card);
+    });
+}
+
+function addNewNote() {
+    const newNote = {
+        id: 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+        title: 'Ghi chú mới ' + (projectNotes.length + 1),
+        content: '',
+        updatedAt: new Date().toLocaleString('vi-VN')
+    };
+    projectNotes.unshift(newNote);
+    saveNotes();
+    renderNotes();
+}
+
+function openNotesAuthModal() {
+    const modal = document.getElementById('notes-auth-modal');
+    const input = document.getElementById('notes-password-input');
+    const errorMsg = document.getElementById('notes-auth-error');
+    
+    if (!modal || !input || !errorMsg) return;
+    
+    input.value = '';
+    errorMsg.style.display = 'none';
+    modal.classList.remove('shake-animation');
+    modal.classList.add('show');
+    
+    setTimeout(() => {
+        input.focus();
+    }, 200);
+}
+
+function setupNotesAuthEventListeners() {
+    const modal = document.getElementById('notes-auth-modal');
+    const input = document.getElementById('notes-password-input');
+    const errorMsg = document.getElementById('notes-auth-error');
+    const btnCancel = document.getElementById('btn-auth-cancel');
+    const btnSubmit = document.getElementById('btn-auth-submit');
+    
+    if (!modal || !input || !errorMsg || !btnCancel || !btnSubmit) return;
+    
+    const handleAuth = () => {
+        const password = input.value;
+        if (password === '100702') {
+            sessionStorage.setItem('notes_authenticated', 'true');
+            modal.classList.remove('show');
+            
+            // Navigate to Notes Tool
+            gridContainer.style.display = 'none';
+            if (document.getElementById('notes-tool')) {
+                document.getElementById('notes-tool').style.display = 'flex';
+            }
+            renderNotes();
+        } else {
+            errorMsg.style.display = 'block';
+            modal.classList.add('shake-animation');
+            input.select();
+            setTimeout(() => {
+                modal.classList.remove('shake-animation');
+            }, 600);
+        }
+    };
+    
+    btnSubmit.addEventListener('click', handleAuth);
+    
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            handleAuth();
+        }
+    });
+    
+    btnCancel.addEventListener('click', () => {
+        modal.classList.remove('show');
+    });
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('show');
+        }
+    });
+}
+
+function setupNotesEventListeners() {
+    const btnBackNotes = document.getElementById('btn-back-notes');
+    if (btnBackNotes) {
+        btnBackNotes.addEventListener('click', () => {
+            document.getElementById('notes-tool').style.display = 'none';
+            gridContainer.style.display = 'grid';
+        });
+    }
+
+    const btnAddNote = document.getElementById('btn-add-note');
+    if (btnAddNote) {
+        btnAddNote.addEventListener('click', addNewNote);
+    }
+}
+
 // Initialize App
 function init() {
     buildMasterData();
     renderProducts();
     setupModalEvents();
     createStars();
+    loadNotes();
+    setupNotesEventListeners();
+    setupNotesAuthEventListeners();
 }
 
 document.addEventListener('DOMContentLoaded', init);

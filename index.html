@@ -261,6 +261,23 @@
                     <iframe src="WEB_Test.html" style="width: 100%; height: 100%; border: none;"></iframe>
                 </div>
             </div>
+
+            <!-- Project Notes Tool (Hidden initially) -->
+            <div id="notes-tool" class="selection-tool" style="display: none;">
+                <button id="btn-back-notes" class="btn-secondary" style="align-self: flex-start; margin-bottom: 10px;">&larr;
+                    Quay lại Danh Mục</button>
+                <div class="glass-panel-ui">
+                    <div class="notes-tool-header">
+                        <h2>📝 SỔ TAY GHI CHÉP DỰ ÁN</h2>
+                        <button id="btn-add-note" class="btn-primary" style="width: auto; padding: 10px 20px; display: flex; align-items: center; gap: 8px;">
+                            ➕ Thêm Ghi Chú Mới
+                        </button>
+                    </div>
+                    <div id="notes-container" class="notes-grid">
+                        <!-- Dynamic note cards will be injected here -->
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
@@ -280,6 +297,37 @@
                         <ul id="modal-specs"></ul>
                     </div>
                     <button class="btn-primary">Liên Hệ Ngay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Auth Modal for Project Notes -->
+    <div id="notes-auth-modal" class="modal">
+        <div class="modal-content glass-panel" style="max-width: 400px; padding: 30px; border-radius: 24px;">
+            <div style="text-align: center; display: flex; flex-direction: column; gap: 15px;">
+                <div style="font-size: 3rem; animation: floatBtn 3s infinite ease-in-out;">🔒</div>
+                <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--text-primary);">Yêu Cầu Mật Khẩu</h3>
+                <p style="color: var(--text-secondary); font-size: 0.95rem;">Vui lòng nhập mật khẩu để truy cập sổ tay ghi chép dự án.</p>
+                <input type="password" id="notes-password-input" style="
+                    width: 100%;
+                    padding: 12px 15px;
+                    border: 1px solid #cbd5e1;
+                    border-radius: 10px;
+                    font-size: 1.2rem;
+                    text-align: center;
+                    letter-spacing: 4px;
+                    outline: none;
+                    transition: all 0.3s;
+                    background: #ffffff;
+                    color: var(--text-primary);
+                " placeholder="••••••">
+                <div id="notes-auth-error" style="color: #ef4444; font-size: 0.9rem; font-weight: 600; display: none;">
+                    ⚠️ Mật khẩu không chính xác!
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button id="btn-auth-cancel" class="btn-secondary" style="flex: 1;">Hủy</button>
+                    <button id="btn-auth-submit" class="btn-primary" style="flex: 1; background: var(--accent);">Xác nhận</button>
                 </div>
             </div>
         </div>
