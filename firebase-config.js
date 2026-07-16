@@ -1,4 +1,4 @@
-// Cấu hình ứng dụng Firebase Web của bạn
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyCob6gT1WT6BCAZQWaRXYxaLhSInmst2eM",
     authDomain: "inovance-selection-tool.firebaseapp.com",
@@ -9,5 +9,5 @@ const firebaseConfig = {
     measurementId: "G-YM32VR645Z"
 };
 
-// Đã điền cấu hình thật -> kích hoạt tính năng đồng bộ
+// Đã cấu hình Firebase, kích hoạt đồng bộ đám mây
 const isFirebaseConfigured = true;
