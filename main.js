@@ -973,11 +973,112 @@ function exportToExcel() {
 }
 
 // -----------------------------------------------------
-// PROJECT NOTES TOOL LOGIC
+// PROJECT NOTES TOOL LOGIC (Firestore Cloud Sync & LocalStorage Fallback)
 // -----------------------------------------------------
 let projectNotes = [];
+let unsubscribeNotesListener = null;
+let saveFirebaseTimeout = null;
+
+function getSyncKey() {
+    let key = localStorage.getItem('inovance_notes_sync_key');
+    if (!key) {
+        key = 'default';
+        localStorage.setItem('inovance_notes_sync_key', key);
+    }
+    return key;
+}
+
+function updateSyncStatus(text, color) {
+    const statusContainer = document.getElementById('notes-sync-status');
+    if (statusContainer) {
+        statusContainer.innerHTML = `<span style="color: ${color}; font-weight: 600;">Trạng thái: ${text}</span>`;
+    }
+}
 
 function loadNotes() {
+    // Điền mã đồng bộ vào ô input
+    const syncKeyInput = document.getElementById('notes-sync-key-input');
+    if (syncKeyInput) {
+        syncKeyInput.value = getSyncKey();
+    }
+
+    // Kiểm tra xem cấu hình Firebase có tồn tại và hợp lệ không
+    if (typeof isFirebaseConfigured !== 'undefined' && isFirebaseConfigured) {
+        updateSyncStatus("Đang kết nối đám mây... ⏳", "var(--text-secondary)");
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+            const db = firebase.firestore();
+            const syncKey = getSyncKey();
+
+            // Huỷ đăng ký listener cũ nếu có
+            if (unsubscribeNotesListener) {
+                unsubscribeNotesListener();
+            }
+
+            // Đăng ký lắng nghe tài liệu ghi chú theo Mã Đồng Bộ
+            unsubscribeNotesListener = db.collection('project_notes').doc(syncKey).onSnapshot(doc => {
+                let remoteNotes = [];
+                if (doc.exists) {
+                    remoteNotes = doc.data().notes || [];
+                } else {
+                    // Khởi tạo tài liệu trống trên Firestore
+                    remoteNotes = [
+                        {
+                            id: 'note_default_1',
+                            title: 'Ghi chú Dự án 1',
+                            content: 'Nhập thông tin cấu hình trạm máy hoặc mã thiết bị cần mua vào đây...',
+                            updatedAt: new Date().toLocaleString('vi-VN')
+                        }
+                    ];
+                    db.collection('project_notes').doc(syncKey).set({ notes: remoteNotes })
+                      .catch(err => console.error("Lỗi khởi tạo tài liệu:", err));
+                }
+
+                // Kiểm tra xem dữ liệu đám mây có khác dữ liệu trong bộ nhớ không
+                const isDifferent = JSON.stringify(remoteNotes) !== JSON.stringify(projectNotes);
+
+                if (isDifferent) {
+                    projectNotes = remoteNotes;
+                    // Sao lưu offline mới nhất
+                    localStorage.setItem('inovance_project_notes', JSON.stringify(projectNotes));
+
+                    // Chỉ re-render nếu người dùng không tập trung vào ô nhập liệu để tránh nhảy con trỏ
+                    const activeEl = document.activeElement;
+                    const isTyping = activeEl && (activeEl.classList.contains('note-card-textarea') || activeEl.classList.contains('note-card-title-input'));
+
+                    if (!isTyping) {
+                        renderNotes();
+                    } else {
+                        // Lắng nghe khi họ focus-out khỏi ô nhập liệu thì mới vẽ lại giao diện
+                        activeEl.addEventListener('blur', function onBlur() {
+                            renderNotes();
+                            activeEl.removeEventListener('blur', onBlur);
+                        }, { once: true });
+                    }
+                }
+                updateSyncStatus("Đồng bộ đám mây ✅", "#10b981");
+            }, error => {
+                console.error("Firestore error:", error);
+                updateSyncStatus("Lỗi kết nối Firebase ⚠️ (Dùng offline)", "#ef4444");
+                loadNotesOffline();
+                renderNotes();
+            });
+        } catch (err) {
+            console.error("Firebase init/connect error:", err);
+            updateSyncStatus("Lỗi khởi tạo Firebase ⚠️ (Dùng offline)", "#ef4444");
+            loadNotesOffline();
+            renderNotes();
+        }
+    } else {
+        updateSyncStatus("Bộ nhớ cục bộ 💾 (Chưa cấu hình Firebase)", "var(--text-secondary)");
+        loadNotesOffline();
+        renderNotes();
+    }
+}
+
+function loadNotesOffline() {
     try {
         const saved = localStorage.getItem('inovance_project_notes');
         if (saved) {
@@ -991,16 +1092,41 @@ function loadNotes() {
                     updatedAt: new Date().toLocaleString('vi-VN')
                 }
             ];
-            saveNotes();
+            localStorage.setItem('inovance_project_notes', JSON.stringify(projectNotes));
         }
     } catch (e) {
-        console.error("Error loading notes", e);
+        console.error("Error loading notes offline", e);
         projectNotes = [];
     }
 }
 
 function saveNotes() {
+    // 1. Lưu lập tức vào LocalStorage để đảm bảo an toàn cục bộ
     localStorage.setItem('inovance_project_notes', JSON.stringify(projectNotes));
+
+    // 2. Đồng bộ đám mây với Debounce (tránh đẩy yêu cầu mạng liên tục khi gõ)
+    if (typeof isFirebaseConfigured !== 'undefined' && isFirebaseConfigured) {
+        updateSyncStatus("Đang lưu lên đám mây... ⏳", "var(--text-secondary)");
+        if (saveFirebaseTimeout) clearTimeout(saveFirebaseTimeout);
+
+        saveFirebaseTimeout = setTimeout(() => {
+            try {
+                const db = firebase.firestore();
+                const syncKey = getSyncKey();
+                db.collection('project_notes').doc(syncKey).set({ notes: projectNotes })
+                    .then(() => {
+                        updateSyncStatus("Đồng bộ đám mây ✅", "#10b981");
+                    })
+                    .catch(err => {
+                        console.error("Firebase write error:", err);
+                        updateSyncStatus("Lỗi lưu đám mây ⚠️", "#ef4444");
+                    });
+            } catch (err) {
+                console.error("Firebase save connection error:", err);
+                updateSyncStatus("Lỗi kết nối Firebase ⚠️", "#ef4444");
+            }
+        }, 1000); // Debounce 1 giây
+    }
 }
 
 function renderNotes() {
@@ -1173,6 +1299,42 @@ function setupNotesEventListeners() {
     const btnAddNote = document.getElementById('btn-add-note');
     if (btnAddNote) {
         btnAddNote.addEventListener('click', addNewNote);
+    }
+
+    // Trình lắng nghe đổi Mã Đồng Bộ
+    const btnSaveSyncKey = document.getElementById('btn-save-sync-key');
+    const syncKeyInput = document.getElementById('notes-sync-key-input');
+    if (btnSaveSyncKey && syncKeyInput) {
+        btnSaveSyncKey.addEventListener('click', () => {
+            const newKey = syncKeyInput.value.trim().toLowerCase() || 'default';
+            // Lọc các ký tự đặc biệt để đảm bảo làm Document ID hợp lệ và an toàn
+            const cleanKey = newKey.replace(/[^a-z0-9_-]/g, '');
+            if (!cleanKey) {
+                alert("Mã đồng bộ không hợp lệ! Vui lòng chỉ dùng chữ thường (a-z), số (0-9), gạch ngang (-) hoặc gạch dưới (_).");
+                return;
+            }
+            
+            localStorage.setItem('inovance_notes_sync_key', cleanKey);
+            syncKeyInput.value = cleanKey;
+            
+            // Khởi động lại kênh đồng bộ dữ liệu với mã mới
+            loadNotes();
+
+            // Hiển thị trạng thái lưu thành công
+            const originText = btnSaveSyncKey.textContent;
+            btnSaveSyncKey.textContent = 'Đã lưu!';
+            btnSaveSyncKey.style.background = '#10b981';
+            setTimeout(() => {
+                btnSaveSyncKey.textContent = originText;
+                btnSaveSyncKey.style.background = '';
+            }, 1200);
+        });
+
+        syncKeyInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                btnSaveSyncKey.click();
+            }
+        });
     }
 }
 

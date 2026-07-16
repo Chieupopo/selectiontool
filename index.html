@@ -267,11 +267,23 @@
                 <button id="btn-back-notes" class="btn-secondary" style="align-self: flex-start; margin-bottom: 10px;">&larr;
                     Quay lại Danh Mục</button>
                 <div class="glass-panel-ui">
-                    <div class="notes-tool-header">
-                        <h2>📝 SỔ TAY GHI CHÉP DỰ ÁN</h2>
-                        <button id="btn-add-note" class="btn-primary" style="width: auto; padding: 10px 20px; display: flex; align-items: center; gap: 8px;">
-                            ➕ Thêm Ghi Chú Mới
-                        </button>
+                    <div class="notes-tool-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <h2 style="margin-bottom: 0 !important; border-bottom: none !important; padding-bottom: 0 !important;">📝 SỔ TAY GHI CHÉP DỰ ÁN</h2>
+                            <div id="notes-sync-status" style="font-size: 0.85rem; margin-top: 6px; display: flex; align-items: center; gap: 5px; color: var(--text-secondary);">
+                                <span>Trạng thái: Đang kết nối...</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <div class="sync-key-box" style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.5); padding: 5px 10px; border-radius: 8px; border: 1px solid var(--glass-border);">
+                                <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Mã đồng bộ:</span>
+                                <input type="text" id="notes-sync-key-input" style="width: 120px; padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem; outline: none; background: #fff;" placeholder="Mã đồng bộ...">
+                                <button id="btn-save-sync-key" style="background: var(--accent); color: white; border: none; padding: 5px 10px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 600; transition: background 0.2s;">Lưu</button>
+                            </div>
+                            <button id="btn-add-note" class="btn-primary" style="width: auto; padding: 10px 20px; display: flex; align-items: center; gap: 8px; margin: 0;">
+                                ➕ Thêm Ghi Chú Mới
+                            </button>
+                        </div>
                     </div>
                     <div id="notes-container" class="notes-grid">
                         <!-- Dynamic note cards will be injected here -->
@@ -340,6 +352,10 @@
     <script src="data.js"></script>
     <script src="data_inverter.js"></script>
     <script src="data_plc.js"></script>
+    <!-- Firebase SDK (compat mode for non-module script) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
     <script src="main.js"></script>
 </body>
 
