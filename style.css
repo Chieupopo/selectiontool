@@ -709,4 +709,56 @@ header p {
     box-shadow: 0 10px 30px rgba(239, 68, 68, 0.2);
 }
 
+/* --- CUSTOM MOUSE CURSOR --- */
+* {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' style='font-family:sans-serif;'><circle cx='4' cy='4' r='3' fill='%232563eb' stroke='white' stroke-width='1.5'/><text x='12' y='16' fill='%232563eb' font-weight='800' font-size='14px' stroke='%23ffffff' stroke-width='3' paint-order='stroke'>PO</text></svg>") 4 4, auto;
+}
+
+/* Interactive elements change color to highlight they are clickable */
+a, button, [role="button"], input, select, textarea, .product-card, .note-card-copy-btn, .note-card-delete-btn, .close-btn, .cute-corner, .sync-key-box {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' style='font-family:sans-serif;'><circle cx='4' cy='4' r='3' fill='%23ef4444' stroke='white' stroke-width='1.5'/><text x='12' y='16' fill='%23ef4444' font-weight='800' font-size='14px' stroke='%23ffffff' stroke-width='3' paint-order='stroke'>PO</text></svg>") 4 4, pointer;
+}
+
+/* --- PERSONAL BRAND BADGE --- */
+.brand-badge-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 18px;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(239, 68, 68, 0.15) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    color: var(--text-primary);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05), inset 0 0 10px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-badge:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.25);
+    border-color: rgba(37, 99, 235, 0.4);
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.25) 0%, rgba(239, 68, 68, 0.25) 100%);
+}
+
+.brand-icon {
+    font-size: 1rem;
+    animation: spinIcon 4s infinite linear;
+}
+
+@keyframes spinIcon {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 
