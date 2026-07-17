@@ -1165,18 +1165,52 @@ function renderNotes() {
         const deleteBtn = card.querySelector('.note-card-delete-btn');
         const copyBtn = card.querySelector('.note-card-copy-btn');
 
-        titleInput.addEventListener('input', () => {
-            note.title = titleInput.value;
-            note.updatedAt = new Date().toLocaleString('vi-VN');
-            card.querySelector('.note-card-footer span').textContent = `Cập nhật: ${note.updatedAt}`;
-            saveNotes();
+        let originalTitle = note.title;
+        titleInput.addEventListener('focus', () => {
+            originalTitle = titleInput.value;
         });
 
-        textarea.addEventListener('input', () => {
-            note.content = textarea.value;
-            note.updatedAt = new Date().toLocaleString('vi-VN');
-            card.querySelector('.note-card-footer span').textContent = `Cập nhật: ${note.updatedAt}`;
-            saveNotes();
+        titleInput.addEventListener('change', () => {
+            if (titleInput.value === originalTitle) return;
+            const password = prompt("Vui lòng nhập mật khẩu để thay đổi tiêu đề ghi chú:");
+            if (password === null) {
+                titleInput.value = originalTitle;
+                return;
+            }
+            if (password === '102975') {
+                note.title = titleInput.value;
+                originalTitle = note.title;
+                note.updatedAt = new Date().toLocaleString('vi-VN');
+                card.querySelector('.note-card-footer span').textContent = `Cập nhật: ${note.updatedAt}`;
+                saveNotes();
+            } else {
+                alert("Mật khẩu không chính xác!");
+                titleInput.value = originalTitle;
+            }
+        });
+
+        let originalContent = note.content;
+        textarea.addEventListener('focus', () => {
+            originalContent = textarea.value;
+        });
+
+        textarea.addEventListener('change', () => {
+            if (textarea.value === originalContent) return;
+            const password = prompt("Vui lòng nhập mật khẩu để thay đổi nội dung ghi chú:");
+            if (password === null) {
+                textarea.value = originalContent;
+                return;
+            }
+            if (password === '102975') {
+                note.content = textarea.value;
+                originalContent = note.content;
+                note.updatedAt = new Date().toLocaleString('vi-VN');
+                card.querySelector('.note-card-footer span').textContent = `Cập nhật: ${note.updatedAt}`;
+                saveNotes();
+            } else {
+                alert("Mật khẩu không chính xác!");
+                textarea.value = originalContent;
+            }
         });
 
         deleteBtn.addEventListener('click', () => {
