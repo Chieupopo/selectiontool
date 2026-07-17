@@ -261,7 +261,7 @@ async function callGeminiAPI(apiKey, messages, tools) {
 
 // Manage conversation stream/loops
 async function getAIResponse(userMessageText) {
-    let apiKey = typeof GEMINI_API_KEY !== 'undefined' ? GEMINI_API_KEY : localStorage.getItem('gemini_api_key');
+    let apiKey = localStorage.getItem('gemini_api_key');
     if (!apiKey) {
         return "Vui lòng cấu hình Gemini API Key.";
     }
@@ -344,8 +344,38 @@ async function getAIResponse(userMessageText) {
     return "Đã vượt quá số lượng cuộc gọi hàm tối đa. Vui lòng thử lại.";
 }
 
+// Synchronize API Key with Firestore so it shares across devices automatically without storing it in Git
+function syncAPIKeyWithFirestore() {
+    if (typeof firebase !== 'undefined' && typeof isFirebaseConfigured !== 'undefined' && isFirebaseConfigured) {
+        const db = firebase.firestore();
+        const localKey = localStorage.getItem('gemini_api_key');
+        
+        db.collection('system_config').doc('gemini_config').get().then(doc => {
+            if (doc.exists) {
+                const firestoreKey = doc.data().apiKey;
+                if (firestoreKey && firestoreKey !== localKey) {
+                    localStorage.setItem('gemini_api_key', firestoreKey);
+                    console.log("Gemini API Key synchronized from Firestore.");
+                }
+            } else {
+                // If it doesn't exist in Firestore but exists in localStorage, upload it
+                if (localKey) {
+                    db.collection('system_config').doc('gemini_config').set({ apiKey: localKey })
+                        .then(() => console.log("Gemini API Key synchronized to Firestore."))
+                        .catch(err => console.error("Error syncing API Key to Firestore:", err));
+                }
+            }
+        }).catch(err => {
+            console.error("Firestore API Key check error:", err);
+        });
+    }
+}
+
 // UI Setup and Controller
 document.addEventListener('DOMContentLoaded', () => {
+    // Start self-sync of Gemini API Key via Firestore
+    syncAPIKeyWithFirestore();
+
     const chatBtn = document.getElementById('ai-chat-btn');
     const chatWindow = document.getElementById('ai-chat-window');
     const chatCloseBtn = document.getElementById('ai-chat-close-btn');
