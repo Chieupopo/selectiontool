@@ -324,6 +324,19 @@ async function getAIResponse(userMessageText) {
         } catch (error) {
             console.error("Gemini API Error:", error);
             chatHistory.pop(); // Remove the failed turn
+            
+            // Try to fetch available models to diagnose the issue
+            try {
+                const diagResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+                if (diagResponse.ok) {
+                    const diagData = await diagResponse.json();
+                    const modelNames = diagData.models ? diagData.models.map(m => m.name.replace('models/', '')).join(', ') : 'none';
+                    return `⚠️ Lỗi kết nối với AI: ${error.message}.\n\n**Các mô hình khả dụng với Key của bạn:** ${modelNames}`;
+                }
+            } catch (diagErr) {
+                console.error("Diagnostics failed:", diagErr);
+            }
+            
             return `⚠️ Đã xảy ra lỗi khi kết nối với AI: ${error.message}. Vui lòng kiểm tra lại kết nối mạng hoặc API Key của bạn.`;
         }
     }
