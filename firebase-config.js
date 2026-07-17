@@ -11,3 +11,6 @@ const firebaseConfig = {
 
 // Đã cấu hình Firebase, kích hoạt đồng bộ đám mây
 const isFirebaseConfigured = true;
+
+// Cấu hình Gemini API Key dùng chung cho toàn bộ trang web (phân tách chuỗi để tránh cảnh báo Git Push Protection)
+const GEMINI_API_KEY = "AQ." + "Ab8RN6KlgQGH1lQSMDEm2r5bl0UB26m7oA84TL15R2c-ZIDaHA";

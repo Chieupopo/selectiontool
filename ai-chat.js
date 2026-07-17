@@ -234,7 +234,7 @@ async function callGeminiAPI(apiKey, messages, tools) {
         contents: messages,
         systemInstruction: {
             parts: [{
-                text: "Bạn là Trợ Lý AI chuyên nghiệp, thân thiện của hệ thống thiết bị tự động hóa INOVANCE. Nhiệm vụ của bạn là tư vấn, giải đáp thắc mắc và hỗ trợ người dùng tìm kiếm, lựa chọn mã thiết bị (PLC, Biến Tần, Servo) dựa trên cơ sở dữ liệu có sẵn thông qua các công cụ tìm kiếm được cung cấp. Hãy trả lời thân thiện, ngắn gọn, bằng tiếng Việt. Sử dụng bảng và danh sách để hiển thị danh sách thiết bị một cách rõ ràng. Hãy gợi ý tìm kiếm cụ thể khi trả lời."
+                text: "Bạn là Trợ Lý AI Tiểu PO chuyên nghiệp, thân thiện của hệ thống thiết bị tự động hóa INOVANCE. Nhiệm vụ của bạn là tư vấn, giải đáp thắc mắc và hỗ trợ người dùng tìm kiếm, lựa chọn mã thiết bị (PLC, Biến Tần, Servo) dựa trên cơ sở dữ liệu có sẵn thông qua các công cụ tìm kiếm được cung cấp. Hãy trả lời thân thiện, ngắn gọn, bằng tiếng Việt. Sử dụng bảng và danh sách để hiển thị danh sách thiết bị một cách rõ ràng. Hãy gợi ý tìm kiếm cụ thể khi trả lời."
             }]
         }
     };
@@ -261,9 +261,9 @@ async function callGeminiAPI(apiKey, messages, tools) {
 
 // Manage conversation stream/loops
 async function getAIResponse(userMessageText) {
-    let apiKey = localStorage.getItem('gemini_api_key');
+    let apiKey = typeof GEMINI_API_KEY !== 'undefined' ? GEMINI_API_KEY : localStorage.getItem('gemini_api_key');
     if (!apiKey) {
-        return "Vui lòng cấu hình Gemini API Key bằng cách click vào biểu tượng răng cưa ⚙️ ở góc trên bên phải khung chat.";
+        return "Vui lòng cấu hình Gemini API Key.";
     }
     
     chatHistory.push({
