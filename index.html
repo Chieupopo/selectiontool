@@ -354,6 +354,46 @@
     <div class="cute-corner left-corner" title="Automate Everything">🤖</div>
     <div class="cute-corner right-corner" title="Rocket Speed Selector">🚀</div>
 
+    <!-- AI Chat Floating Button -->
+    <button class="ai-chat-btn" id="ai-chat-btn" title="Chat với Trợ lý AI">💬</button>
+
+    <!-- AI Chat Window -->
+    <div class="ai-chat-window" id="ai-chat-window">
+        <div class="ai-chat-header">
+            <div class="ai-chat-header-info">
+                <h4>Trợ Lý AI INOVANCE</h4>
+                <span id="ai-status">Online</span>
+            </div>
+            <div class="ai-chat-header-actions">
+                <button class="ai-settings-toggle" id="ai-settings-toggle" title="Cài đặt API Key">⚙️</button>
+                <button class="ai-chat-close-btn" id="ai-chat-close-btn" title="Đóng">&times;</button>
+            </div>
+        </div>
+        
+        <!-- Settings Panel -->
+        <div class="ai-settings-overlay" id="ai-settings-overlay">
+            <h5>Cấu hình Gemini API</h5>
+            <p>Nhập API Key của bạn để sử dụng Trợ lý AI. Key được lưu trữ cục bộ trên trình duyệt của bạn.</p>
+            <p>Chưa có API Key? <a href="https://aistudio.google.com/" target="_blank">Lấy key miễn phí tại Google AI Studio</a>.</p>
+            <div class="ai-key-input-container">
+                <label for="ai-api-key">Gemini API Key:</label>
+                <input type="password" id="ai-api-key" class="ai-key-input" placeholder="AIzaSy...">
+            </div>
+            <button class="ai-save-key-btn" id="ai-save-key-btn">Lưu API Key</button>
+        </div>
+
+        <div class="ai-chat-body" id="ai-chat-body">
+            <div class="ai-chat-msg assistant">
+                Xin chào! Tôi là Trợ Lý AI của hệ thống INOVANCE. Tôi có thể giúp bạn tra cứu thiết bị PLC, Biến Tần, và Servo phù hợp với nhu cầu. Bạn cần tôi tìm kiếm thiết bị nào hôm nay?
+            </div>
+        </div>
+
+        <div class="ai-chat-footer">
+            <input type="text" class="ai-chat-input" id="ai-chat-input" placeholder="Hỏi tôi về thiết bị..." autocomplete="off">
+            <button class="ai-send-btn" id="ai-send-btn" title="Gửi">✈️</button>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style/dist/xlsx.bundle.js"></script>
     <script src="data.js"></script>
     <script src="data_inverter.js"></script>
@@ -363,6 +403,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script src="firebase-config.js"></script>
     <script src="main.js?v=1.0.2"></script>
+    <script src="ai-chat.js?v=1.0.0"></script>
 </body>
 
 </html>
