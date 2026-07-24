@@ -309,7 +309,7 @@ async function getAIResponse(userMessageText) {
                 }
                 
                 chatHistory.push({
-                    role: 'function',
+                    role: 'user',
                     parts: functionResponseParts
                 });
                 
