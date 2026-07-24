@@ -228,10 +228,22 @@ function compileHTMLTable(rows) {
 
 // Call Gemini API
 async function callGeminiAPI(apiKey, messages, tools) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    
+    // Ensure no 'function' role is passed to the API
+    const sanitizedMessages = messages.map(msg => {
+        let cleanRole = msg.role;
+        if (cleanRole === 'function') {
+            cleanRole = 'user';
+        }
+        return {
+            role: cleanRole,
+            parts: msg.parts
+        };
+    });
     
     const requestBody = {
-        contents: messages,
+        contents: sanitizedMessages,
         systemInstruction: {
             parts: [{
                 text: "Bạn là Trợ Lý AI Tiểu PO chuyên nghiệp, thân thiện của hệ thống thiết bị tự động hóa INOVANCE. Nhiệm vụ của bạn là tư vấn, giải đáp thắc mắc và hỗ trợ người dùng tìm kiếm, lựa chọn mã thiết bị (PLC, Biến Tần, Servo) dựa trên cơ sở dữ liệu có sẵn thông qua các công cụ tìm kiếm được cung cấp. Hãy trả lời thân thiện, ngắn gọn, bằng tiếng Việt. Sử dụng bảng và danh sách để hiển thị danh sách thiết bị một cách rõ ràng. Hãy gợi ý tìm kiếm cụ thể khi trả lời."
@@ -282,6 +294,9 @@ async function getAIResponse(userMessageText) {
             const functionCalls = parts.filter(p => p.functionCall);
             
             if (functionCalls.length > 0) {
+                if (content && content.role === 'function') {
+                    content.role = 'model';
+                }
                 chatHistory.push(content);
                 
                 const functionResponseParts = [];
