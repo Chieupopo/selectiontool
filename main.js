@@ -213,7 +213,7 @@ function getServoCables(item) {
     } else if (mc.startsWith("MS1H1") || mc.startsWith("MS1H4")) {
         eCable = "S6-L-P124-5.0-INT";
         if (item.brake === "Without") pCable = "S6-L-M107-5.0-INT";
-        else if (item.brake === "With") pCable = "S6-L-B108-5.0-INT";
+        else if (item.brake === "With") pCable = "S6-L-B107-5.0-INT";
     }
     
     return { pCable, eCable };
